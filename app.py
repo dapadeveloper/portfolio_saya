@@ -83,9 +83,16 @@ with st.sidebar:
 def skill_bar(name, percent):
     st.markdown(f'<div class="skill-label"><span>{name}</span><span>{percent}%</span></div><div class="progress-bg"><div class="progress-fill" style="width: {percent}%;"></div></div>', unsafe_allow_html=True)
 
-def render_project(title, desc, tags, img_b64, fallback):
-    img_src = f'src="data:image/jpeg;base64,{img_b64}"' if img_b64 else f'src="" alt="{fallback}"'
+def render_project(title, desc, tags, img_b64, link_url=None, is_deployed=True):
+    img_src = f'src="data:image/jpeg;base64,{img_b64}"' if img_b64 else 'src="" alt="Image Not Found"'
     t_html = "".join([f'<span class="project-tag">{t}</span>' for t in tags])
+    
+    # Logika untuk tombol/link
+    if is_deployed and link_url:
+        action_html = f'<a href="{link_url}" target="_blank" style="color:#0f172a; font-weight:800; text-decoration:none;">🔗 Go to Website</a>'
+    else:
+        action_html = '<span style="color:#475569; font-weight:600; font-style:italic;">⚠️ Belum di-deploy</span>'
+
     st.markdown(f"""
     <div class="project-card">
         <div class="project-img-box"><img {img_src}></div>
@@ -93,7 +100,7 @@ def render_project(title, desc, tags, img_b64, fallback):
             <div class="project-title">{title}</div>
             <div class="project-desc">{desc}</div>
             <div>{t_html}</div>
-            <div style="margin-top:15px;"><a href="https://github.com/dapadeveloper" target="_blank" style="color:#0f172a; font-weight:800; text-decoration:none;">💻 View Code</a></div>
+            <div style="margin-top:15px;">{action_html}</div>
         </div>
     </div>""", unsafe_allow_html=True)
 
@@ -139,11 +146,29 @@ elif selected == "Projects":
     st.write("##")
     col1, col2, col3 = st.columns(3, gap="medium")
     with col1:
-        render_project("Air Quality Analysis", "Dashboard interaktif analisis data kualitas udara PM2.5 real-time.", ["Python", "Pandas", "Streamlit"], img_dashboard, "dashboard.jpg Not Found")
+        render_project(
+            "Air Quality Analysis", 
+            "Dashboard interaktif analisis data kualitas udara PM2.5 real-time.", 
+            ["Python", "Pandas", "Streamlit"], 
+            img_dashboard, 
+            link_url="https://air-quality-analysis-bjdvcvytswek2toxrkuwbe.streamlit.app/"
+        )
     with col2:
-        render_project("Human Detection", "Sistem deteksi gerakan manusia menggunakan Computer Vision dan YOLO.", ["Python", "OpenCV", "YOLO"], img_human, "human.jpg Not Found")
+        render_project(
+            "Human Detection", 
+            "Sistem deteksi gerakan manusia menggunakan Computer Vision dan YOLO.", 
+            ["Python", "OpenCV", "YOLO"], 
+            img_human, 
+            is_deployed=False
+        )
     with col3:
-        render_project("Portfolio Web", "Website portofolio ini dibangun dengan custom CSS dan Streamlit.", ["Streamlit", "CSS", "UI/UX"], img_portofolio, "portofolio.jpg Not Found")
+        render_project(
+            "Portfolio Web", 
+            "Website portofolio ini dibangun dengan custom CSS dan Streamlit.", 
+            ["Streamlit", "CSS", "UI/UX"], 
+            img_portofolio, 
+            link_url="https://portfoliosaya-hvqxtxdyyursjexk4hmorz.streamlit.app/"
+        )
 
 elif selected == "Experience":
     st.markdown("<h1>Experience</h1>", unsafe_allow_html=True)
