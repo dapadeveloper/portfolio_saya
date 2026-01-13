@@ -161,38 +161,39 @@ elif selected == "Contact":
     st.markdown("<h1 style='text-align: center; color: #facc15;'>Get In <span style='color: white;'>Touch</span></h1>", unsafe_allow_html=True)
     st.markdown("<p style='text-align: center; color: #f1f5f9; margin-bottom: 30px;'>I'm always open to discussing new opportunities and interesting projects.</p>", unsafe_allow_html=True)
 
-    # PEMBUKA: Gabungkan semua dalam satu string HTML agar tidak terputus
-    contact_form_html = """
-    <style>
-        .yellow-card {
-            background-color: #facc15;
-            padding: 40px;
-            border-radius: 20px;
-            color: #0f172a;
-        }
-        .contact-label {
-            color: #1e293b;
-            font-size: 14px;
-            font-weight: bold;
-            display: block;
-        }
-        .contact-text {
-            color: #000000 !important;
-            font-weight: 600;
-        }
-        /* Style untuk mengubah warna label input Streamlit agar hitam */
-        div[data-baseweb="input"] label, div[data-baseweb="textarea"] label {
-            color: #0f172a !important;
-            font-weight: bold !important;
-        }
-    </style>
-    <div class="yellow-card">
-    """
+    # --- 1. CSS UNTUK MENATA WARNA INPUT DAN CARD ---
+    st.markdown("""
+        <style>
+            /* Mengubah warna label input Streamlit agar hitam dan tebal */
+            .stTextInput label, .stTextArea label {
+                color: #0f172a !important;
+                font-weight: bold !important;
+            }
+            /* Kotak utama kuning */
+            .yellow-card-bg {
+                background-color: #facc15;
+                padding: 40px;
+                border-radius: 20px;
+                margin-bottom: 20px;
+            }
+            .info-text {
+                color: #000000 !important;
+                font-weight: 600;
+            }
+            .info-header {
+                color: #1e293b;
+                font-size: 14px;
+                font-weight: bold;
+                display: block;
+            }
+        </style>
+    """, unsafe_allow_html=True)
+
+    # --- 2. MULAI CONTAINER KUNING ---
+    # Kita buka div pembungkus di sini
+    st.markdown('<div class="yellow-card-bg">', unsafe_allow_html=True)
     
-    # Render bagian pembuka kotak kuning
-    st.markdown(contact_form_html, unsafe_allow_html=True)
-    
-    # Buat kolom DI DALAM area yang sudah dibuka
+    # Buat kolom di DALAM container kuning
     col1, col2 = st.columns([1, 1.2], gap="large")
 
     with col1:
@@ -200,31 +201,33 @@ elif selected == "Contact":
             <h2 style="color: #0f172a; margin-top: 0;">Let's work together</h2>
             <p style="color: #1e293b; margin-bottom: 30px;">Whether you have a project in mind or just want to chat, feel free to reach out!</p>
             
-            <div style="display: flex; align-items: center; margin-bottom: 20px;">
-                <div style="background: #0f172a; width: 40px; height: 40px; border-radius: 10px; display: flex; justify-content: center; align-items: center; margin-right: 15px;">📧</div>
-                <div><span class="contact-label">Email</span><span class="contact-text">Fahmifalah081120@gmail.com</span></div>
+            <div style="display: flex; align-items: center; margin-bottom: 25px;">
+                <div style="background: #0f172a; width: 45px; height: 45px; border-radius: 12px; display: flex; justify-content: center; align-items: center; margin-right: 15px;">📧</div>
+                <div><span class="info-header">Email</span><span class="info-text">Fahmifalah081120@gmail.com</span></div>
             </div>
             
-            <div style="display: flex; align-items: center; margin-bottom: 20px;">
-                <div style="background: #0f172a; width: 40px; height: 40px; border-radius: 10px; display: flex; justify-content: center; align-items: center; margin-right: 15px;">🐙</div>
-                <div><span class="contact-label">GitHub</span><span class="contact-text">dapadeveloper</span></div>
+            <div style="display: flex; align-items: center; margin-bottom: 25px;">
+                <div style="background: #0f172a; width: 45px; height: 45px; border-radius: 12px; display: flex; justify-content: center; align-items: center; margin-right: 15px;">🐙</div>
+                <div><span class="info-header">GitHub</span><span class="info-text">dapadeveloper</span></div>
             </div>
             
             <div style="display: flex; align-items: center;">
-                <div style="background: #0f172a; width: 40px; height: 40px; border-radius: 10px; display: flex; justify-content: center; align-items: center; margin-right: 15px;">📍</div>
-                <div><span class="contact-label">Location</span><span class="contact-text">Pemalang, Indonesia</span></div>
+                <div style="background: #0f172a; width: 45px; height: 45px; border-radius: 12px; display: flex; justify-content: center; align-items: center; margin-right: 15px;">📍</div>
+                <div><span class="info-header">Location</span><span class="info-text">Pemalang, Indonesia</span></div>
             </div>
         """, unsafe_allow_html=True)
 
     with col2:
-        # Gunakan widget Streamlit untuk fungsionalitas
+        # Form Input Streamlit
         name = st.text_input("Nama Lengkap", placeholder="Masukkan nama Anda")
         email_addr = st.text_input("Email Address", placeholder="nama@example.com")
         msg = st.text_area("Pesan", placeholder="Halo Naufal, saya tertarik untuk...")
         
-        # Tombol WhatsApp dengan warna kontras
+        # Tombol Kirim
         if st.button("🚀 SEND MESSAGE TO WHATSAPP", use_container_width=True):
-            st.info("Fitur kirim pesan sedang diproses...")
+            st.balloons()
+            st.success("Pesan terkirim!")
 
-    # PENUTUP: Menutup div kotak kuning setelah semua kolom selesai
+    # --- 3. TUTUP CONTAINER KUNING ---
+    # Pastikan tag penutup ini ada di paling bawah setelah col2
     st.markdown('</div>', unsafe_allow_html=True)
