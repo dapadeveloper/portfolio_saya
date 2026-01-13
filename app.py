@@ -164,50 +164,36 @@ elif selected == "Contact":
     # --- 1. CSS UNTUK MENATA WARNA INPUT DAN CARD ---
     st.markdown("""
         <style>
-            /* Mengubah warna label input Streamlit agar hitam dan tebal di atas kuning */
+            /* Mengubah warna label input Streamlit agar hitam dan tebal */
             .stTextInput label, .stTextArea label {
                 color: #0f172a !important;
                 font-weight: bold !important;
             }
-            
-            /* Kotak utama kuning yang membungkus seluruh konten */
+            /* Kotak utama kuning */
             .yellow-card-bg {
                 background-color: #facc15;
                 padding: 40px;
                 border-radius: 20px;
                 margin-bottom: 20px;
-                display: block;
             }
-
-            /* Mengubah teks isian detail menjadi PUTIH agar menonjol */
-            .info-text-white {
-                color: #ffffff !important;
+            .info-text {
+                color: #000000 !important;
                 font-weight: 600;
-                font-size: 16px;
-                text-shadow: 1px 1px 2px rgba(0,0,0,0.5); /* Shadow agar lebih terbaca di atas kuning */
             }
-
-            .info-header-dark {
-                color: #0f172a;
+            .info-header {
+                color: #1e293b;
                 font-size: 14px;
                 font-weight: bold;
                 display: block;
             }
-
-            /* Style tombol agar serasi */
-            .stButton>button {
-                background-color: #0f172a !important;
-                color: #facc15 !important;
-                font-weight: bold !important;
-                border-radius: 10px !important;
-                border: none !important;
-            }
         </style>
     """, unsafe_allow_html=True)
 
-    # --- 2. MULAI CONTAINER KUNING (Membungkus col1 dan col2) ---
+    # --- 2. MULAI CONTAINER KUNING ---
+    # Kita buka div pembungkus di sini
     st.markdown('<div class="yellow-card-bg">', unsafe_allow_html=True)
     
+    # Buat kolom di DALAM container kuning
     col1, col2 = st.columns([1, 1.2], gap="large")
 
     with col1:
@@ -217,45 +203,31 @@ elif selected == "Contact":
             
             <div style="display: flex; align-items: center; margin-bottom: 25px;">
                 <div style="background: #0f172a; width: 45px; height: 45px; border-radius: 12px; display: flex; justify-content: center; align-items: center; margin-right: 15px;">📧</div>
-                <div>
-                    <span class="info-header-dark">Email</span>
-                    <span class="info-text-white">Fahmifalah081120@gmail.com</span>
-                </div>
+                <div><span class="info-header">Email</span><span class="info-text">Fahmifalah081120@gmail.com</span></div>
             </div>
             
             <div style="display: flex; align-items: center; margin-bottom: 25px;">
                 <div style="background: #0f172a; width: 45px; height: 45px; border-radius: 12px; display: flex; justify-content: center; align-items: center; margin-right: 15px;">🐙</div>
-                <div>
-                    <span class="info-header-dark">GitHub</span>
-                    <span class="info-text-white">dapadeveloper</span>
-                </div>
+                <div><span class="info-header">GitHub</span><span class="info-text">dapadeveloper</span></div>
             </div>
             
             <div style="display: flex; align-items: center;">
                 <div style="background: #0f172a; width: 45px; height: 45px; border-radius: 12px; display: flex; justify-content: center; align-items: center; margin-right: 15px;">📍</div>
-                <div>
-                    <span class="info-header-dark">Location</span>
-                    <span class="info-text-white">Pemalang, Indonesia</span>
-                </div>
+                <div><span class="info-header">Location</span><span class="info-text">Pemalang, Indonesia</span></div>
             </div>
         """, unsafe_allow_html=True)
 
     with col2:
-        # Form Input Streamlit (Otomatis masuk ke dalam area kuning karena berada di antara tag pembuka & penutup div)
+        # Form Input Streamlit
         name = st.text_input("Nama Lengkap", placeholder="Masukkan nama Anda")
         email_addr = st.text_input("Email Address", placeholder="nama@example.com")
         msg = st.text_area("Pesan", placeholder="Halo Naufal, saya tertarik untuk...")
         
         # Tombol Kirim
         if st.button("🚀 SEND MESSAGE TO WHATSAPP", use_container_width=True):
-            # Logika WhatsApp (Opsional)
-            import urllib.parse
-            pesan_wa = urllib.parse.quote(f"Halo Naufal, Nama saya {name} ({email_addr}).\n\nPesan: {msg}")
-            wa_url = f"https://wa.me/628XXXXXXXXXX?text={pesan_wa}" # Ganti X dengan nomor Anda
-            
             st.balloons()
             st.success("Pesan terkirim!")
-            st.markdown(f'<a href="{wa_url}" target="_blank">Klik di sini jika tidak teralihkan otomatis</a>', unsafe_allow_html=True)
 
     # --- 3. TUTUP CONTAINER KUNING ---
+    # Pastikan tag penutup ini ada di paling bawah setelah col2
     st.markdown('</div>', unsafe_allow_html=True)
