@@ -161,66 +161,92 @@ elif selected == "Contact":
     st.markdown("<h1 style='text-align: center; color: #facc15;'>Get In <span style='color: white;'>Touch</span></h1>", unsafe_allow_html=True)
     st.markdown("<p style='text-align: center; color: #f1f5f9; margin-bottom: 30px;'>I'm always open to discussing new opportunities and interesting projects.</p>", unsafe_allow_html=True)
 
-    # Menggunakan container utama dengan styling yang lebih bersih
+    # CSS Khusus untuk memastikan teks terlihat tajam
     st.markdown("""
         <style>
-            .contact-container {
+            .main-contact-card {
                 background-color: #facc15;
-                padding: 40px;
-                border-radius: 20px;
-                color: #0f172a;
-                margin-bottom: 20px;
+                padding: 30px;
+                border-radius: 15px;
+                color: #000000;
             }
-            .contact-info-text {
-                color: #0f172a !important;
-                font-weight: 500;
-            }
-            .contact-label {
-                display: block; 
-                font-size: 14px; 
-                color: #1e293b; 
+            .info-label {
+                color: #1e293b;
+                font-size: 14px;
                 font-weight: bold;
+                margin-bottom: 0px;
+                display: block;
+            }
+            .info-value {
+                color: #000000 !important;
+                font-size: 16px;
+                font-weight: 600;
+            }
+            .icon-box {
+                background: #0f172a;
+                width: 45px;
+                height: 45px;
+                border-radius: 10px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-right: 15px;
+                font-size: 20px;
             }
         </style>
     """, unsafe_allow_html=True)
 
-    # Memulai Container Kuning
-    st.markdown('<div class="contact-container">', unsafe_allow_html=True)
+    # Memulai Container Utama
+    st.markdown('<div class="main-contact-card">', unsafe_allow_html=True)
     
     col1, col2 = st.columns([1, 1.2], gap="large")
 
     with col1:
+        st.markdown('<h2 style="color: #0f172a; margin-top:0;">Let\'s work together</h2>', unsafe_allow_html=True)
+        st.markdown('<p style="color: #1e293b; margin-bottom: 30px;">Whether you have a project in mind or just want to chat about technology, I\'d love to hear from you.</p>', unsafe_allow_html=True)
+        
+        # Email
         st.markdown("""
-            <h2 style="color: #0f172a; font-weight: 800; margin-top: 0;">Let's work together</h2>
-            <p class="contact-info-text">
-                Whether you have a project in mind or just want to chat about technology, I'd love to hear from you. Feel free to reach out!
-            </p>
-            <div style="margin-top: 30px;">
-                <div style="display: flex; align-items: center; margin-bottom: 20px;">
-                    <div style="background: #0f172a; color: #facc15; min-width: 40px; height: 40px; border-radius: 10px; display: flex; justify-content: center; align-items: center; margin-right: 15px;">📧</div>
-                    <div><span class="contact-label">Email</span><span class="contact-info-text">Fahmifalah081120@gmail.com</span></div>
+            <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                <div class="icon-box">📧</div>
+                <div>
+                    <span class="info-label">Email</span>
+                    <span class="info-value">Fahmifalah081120@gmail.com</span>
                 </div>
-                <div style="display: flex; align-items: center; margin-bottom: 20px;">
-                    <div style="background: #0f172a; color: #facc15; min-width: 40px; height: 40px; border-radius: 10px; display: flex; justify-content: center; align-items: center; margin-right: 15px;">🐙</div>
-                    <div><span class="contact-label">GitHub</span><span class="contact-info-text">dapadeveloper</span></div>
+            </div>
+        """, unsafe_allow_html=True)
+
+        # GitHub
+        st.markdown("""
+            <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                <div class="icon-box">🐙</div>
+                <div>
+                    <span class="info-label">GitHub</span>
+                    <span class="info-value">dapadeveloper</span>
                 </div>
-                <div style="display: flex; align-items: center;">
-                    <div style="background: #0f172a; color: #facc15; min-width: 40px; height: 40px; border-radius: 10px; display: flex; justify-content: center; align-items: center; margin-right: 15px;">📍</div>
-                    <div><span class="contact-label">Location</span><span class="contact-info-text">Pemalang, Indonesia</span></div>
+            </div>
+        """, unsafe_allow_html=True)
+
+        # Location
+        st.markdown("""
+            <div style="display: flex; align-items: center;">
+                <div class="icon-box">📍</div>
+                <div>
+                    <span class="info-label">Location</span>
+                    <span class="info-value">Pemalang, Indonesia</span>
                 </div>
             </div>
         """, unsafe_allow_html=True)
 
     with col2:
-        # Form input menggunakan widget asli Streamlit agar berfungsi dengan baik
-        # Kita bungkus dengan div agar stylingnya senada
+        # Gunakan widget asli Streamlit agar input bisa diproses
         name = st.text_input("Nama Lengkap", placeholder="Masukkan nama Anda")
-        email = st.text_input("Email", placeholder="nama@example.com")
-        pesan = st.text_area("Pesan", placeholder="Halo Naufal, saya tertarik untuk...")
+        email = st.text_input("Email Address", placeholder="nama@example.com")
+        message = st.text_area("Pesan", placeholder="Halo Naufal, saya tertarik untuk...")
         
-        # Tombol WhatsApp
         if st.button("🚀 SEND MESSAGE TO WHATSAPP", use_container_width=True):
-            # Logika kirim pesan bisa ditaruh di sini
-            st.success("Redirecting to WhatsApp...")
+            # Format pesan untuk WhatsApp
+            wa_text = f"Halo, saya {name}. {message}"
+            st.success("Pesan siap dikirim!")
 
-    st.markdown('</div>', unsafe_allow_html=True) # Penutup Container Kuning
+    st.markdown('</div>', unsafe_allow_html=True) # Penutup Container Utama
