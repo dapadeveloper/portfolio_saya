@@ -3,85 +3,95 @@ from streamlit_option_menu import option_menu
 from PIL import Image
 import requests
 from streamlit_lottie import st_lottie
+import base64
+from io import BytesIO
 
 # =====================
-# CONFIGURASI HALAMAN
+# KONFIGURASI HALAMAN
 # =====================
 st.set_page_config(page_title="Naufal Daffa | Portfolio", page_icon="📊", layout="wide")
 
-# Fungsi Animasi dengan Proteksi Error
-def load_lottieurl(url):
+# Fungsi untuk memproses gambar lokal agar bisa dimanipulasi CSS
+def get_image_base64(path):
     try:
-        r = requests.get(url, timeout=5)
-        if r.status_code != 200:
-            return None
-        return r.json()
+        img = Image.open(path)
+        buffered = BytesIO()
+        img.save(buffered, format="JPEG")
+        return base64.b64encode(buffered.getvalue()).decode()
     except:
         return None
 
-# Load animasi (Gunakan URL yang lebih stabil)
+# Fungsi Animasi Aman
+def load_lottieurl(url):
+    try:
+        r = requests.get(url, timeout=5)
+        return r.json() if r.status_code == 200 else None
+    except:
+        return None
+
 lottie_data = load_lottieurl("https://lottie.host/8086054a-7e61-4876-803a-345339247f1d/Uj0X0I3Gid.json")
+img_base64 = get_image_base64("Profile.jpg")
 
 # =====================
-# CUSTOM CSS
+# CUSTOM CSS (FIX KONTRAS & LINGKARAN)
 # =====================
-st.markdown("""
+st.markdown(f"""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
-    html, body, [class*="css"] {
-        font-family: 'Plus Jakarta Sans', sans-serif;
-    }
-    .main { background-color: #f8fafc; }
     
-    /* Sidebar Styling */
-    section[data-testid="stSidebar"] {
-        background-color: #ffffff !important;
-        border-right: 1px solid #e2e8f0;
-    }
+    /* Perbaikan Font Global */
+    html, body, [class*="css"] {{
+        font-family: 'Plus Jakarta Sans', sans-serif;
+    }}
 
-    /* Foto Profile Lingkaran */
-    .profile-container {
+    /* Perbaikan Sidebar agar Teks Terlihat Jelas */
+    section[data-testid="stSidebar"] {{
+        background-color: #f0f2f6 !important;
+    }}
+
+    /* CSS untuk Foto Profile Lingkaran Sempurna */
+    .profile-img-container {{
         display: flex;
         justify-content: center;
-        padding-top: 20px;
-    }
-    .profile-img {
+        margin-bottom: 20px;
+        margin-top: 10px;
+    }}
+    .profile-img {{
         width: 150px;
         height: 150px;
-        border-radius: 50%;
+        border-radius: 50% !important;
         object-fit: cover;
         border: 4px solid #38bdf8;
-    }
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }}
 
-    /* Card Styling */
-    .card {
-        background: white;
-        padding: 24px;
-        border-radius: 16px;
-        border: 1px solid #e2e8f0;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        margin-bottom: 20px;
-    }
+    /* Styling Teks Menu Navigasi (Warna Gelap agar Kontras) */
+    .nav-link {{
+        color: #1e293b !important; /* Biru Gelap Tajam */
+        font-weight: 600 !important;
+    }}
+    .nav-link:hover {{
+        color: #38bdf8 !important;
+    }}
     
-    .gradient-text {
+    /* Container untuk Experience & Skills */
+    .card {{
+        background: white;
+        padding: 20px;
+        border-radius: 15px;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        margin-bottom: 15px;
+    }}
+
+    .gradient-text {{
         background: linear-gradient(90deg, #0ea5e9, #6366f1);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         font-weight: 800;
-        font-size: 2.5rem;
-    }
-    
-    .skill-tag {
-        display: inline-block;
-        padding: 5px 12px;
-        background: #f1f5f9;
-        color: #475569;
-        border-radius: 8px;
-        margin: 4px;
-        font-size: 13px;
-        font-weight: 600;
-    }
-    header, footer {visibility: hidden;}
+    }}
+
+    header, footer {{visibility: hidden;}}
     </style>
     """, unsafe_allow_html=True)
 
@@ -89,73 +99,106 @@ st.markdown("""
 # SIDEBAR
 # =====================
 with st.sidebar:
-    # Profile Photo Lingkaran
-    st.markdown(
-        f'<div class="profile-container"><img src="https://raw.githubusercontent.com/dapadeveloper/portfolio_saya/main/Profile.jpg" class="profile-img"></div>', 
-        unsafe_allow_html=True
-    )
+    # Menampilkan Foto Profile Lingkaran
+    if img_base64:
+        st.markdown(f"""
+            <div class="profile-img-container">
+                <img src="data:image/jepg;base64,{img_base64}" class="profile-img">
+            </div>
+            """, unsafe_allow_html=True)
     
-    st.markdown("<h2 style='text-align: center; color: #1e293b; margin-top: 10px;'>Naufal Daffa</h2>", unsafe_allow_html=True)
-    st.markdown("<p style='text-align: center; color: #64748b;'>Data Analyst & ML</p>", unsafe_allow_html=True)
-    
+    st.markdown("<h3 style='text-align: center; color: #0ea5e9; margin-bottom: 0;'>Naufal Daffa</h3>", unsafe_allow_html=True)
+    st.write("##")
+
+    # Navigasi Menu dengan Style Kontras
     selected = option_menu(
         menu_title=None,
         options=["Home", "Skills", "Projects", "Experience", "Contact"],
         icons=["house", "cpu", "code-slash", "award", "envelope"],
         default_index=0,
         styles={
-            "container": {"background-color": "transparent"},
-            "nav-link": {"font-size": "15px", "text-align": "left", "color": "#475569"},
-            "nav-link-selected": {"background-color": "#f0f9ff", "color": "#0ea5e9", "border-left": "4px solid #0ea5e9"},
+            "container": {"padding": "0!important", "background-color": "transparent"},
+            "icon": {"color": "#64748b", "font-size": "18px"}, 
+            "nav-link": {
+                "font-size": "16px", 
+                "text-align": "left", 
+                "margin": "5px", 
+                "color": "#1e293b", # Warna teks utama menu
+                "--hover-color": "#e0f2fe"
+            },
+            "nav-link-selected": {
+                "background-color": "#38bdf8", 
+                "color": "white", # Warna teks saat aktif
+                "font-weight": "800"
+            },
         }
     )
+    
+    st.write("---")
+    st.markdown("<div style='background: #e0f2fe; padding: 15px; border-radius: 10px; color: #0369a1; font-size: 13px; text-align: center; font-weight: 600;'>Computer Science @ Gunadarma University</div>", unsafe_allow_html=True)
 
 # =====================
-# CONTENT
+# KONTEN UTAMA
 # =====================
 if selected == "Home":
     col1, col2 = st.columns([2, 1])
     with col1:
         st.markdown("<br><br>", unsafe_allow_html=True)
-        st.markdown("<h3>Halo! Saya</h3>", unsafe_allow_html=True)
+        st.markdown("<h3>Halo, Saya</h3>", unsafe_allow_html=True)
         st.markdown("<h1><span class='gradient-text'>Naufal Daffa Abdu Al Hafidl</span></h1>", unsafe_allow_html=True)
-        st.write("Mahasiswa Computer Science Universitas Gunadarma yang berfokus pada analisis data dan machine learning.")
+        st.write("Mahasiswa Computer Science yang berfokus pada **Data Analyst** dan **Machine Learning**. Berpengalaman dalam pengolahan data, analisis EDA, dan deployment dashboard.")
     
     with col2:
-        # Perbaikan Error: Hanya tampilkan animasi jika data berhasil dimuat
         if lottie_data:
-            st_lottie(lottie_data, height=300, key="home_anim")
+            st_lottie(lottie_data, height=300, key="home")
         else:
-            st.image("https://via.placeholder.com/300x300.png?text=Data+Analyst", caption="[Animasi gagal dimuat]")
+            st.markdown("<br><br>", unsafe_allow_html=True)
+            st.info("💡 Fokus pada solusi berbasis data.")
 
 elif selected == "Skills":
-    st.subheader(" Technical Skills")
+    st.markdown("<h2 class='gradient-text'>Technical Skills</h2>", unsafe_allow_html=True)
     c1, c2 = st.columns(2)
     with c1:
-        st.markdown("""<div class='card'><h4>Languages</h4>
-        <span class='skill-tag'>Python</span><span class='skill-tag'>SQL</span><span class='skill-tag'>HTML/CSS</span>
-        <span class='skill-tag'>Java</span><span class='skill-tag'>JavaScript</span></div>""", unsafe_allow_html=True)
+        st.markdown("""<div class='card'><h4>Programming</h4>
+        Python, SQL, HTML, CSS, JavaScript, Java, PHP (Laravel)</div>""", unsafe_allow_html=True)
     with c2:
-        st.markdown("""<div class='card'><h4>Tools</h4>
-        <span class='skill-tag'>Pandas</span><span class='skill-tag'>Scikit-Learn</span><span class='skill-tag'>Streamlit</span>
-        <span class='skill-tag'>Git</span><span class='skill-tag'>Figma</span></div>""", unsafe_allow_html=True)
+        st.markdown("""<div class='card'><h4>Tools & Others</h4>
+        Pandas, Scikit-Learn, OpenCV, YOLOv3, Git/GitHub, Streamlit, Figma</div>""", unsafe_allow_html=True)
 
 elif selected == "Projects":
-    st.subheader(" Featured Projects")
+    st.markdown("<h2 class='gradient-text'>Highlighted Projects</h2>", unsafe_allow_html=True)
     st.markdown("""
     <div class='card'>
-        <h4>Air Quality Analysis Dashboard</h4>
-        <p>Analisis tren polusi udara menggunakan Python dan Streamlit.</p>
-        <a href='https://github.com/dapadeveloper/air-quality-analysis' target='_blank'>Lihat di GitHub</a>
+        <h4>📊 Air Quality Analysis</h4>
+        <p>Analisis tren polusi udara PM2.5 menggunakan Python dan Streamlit.</p>
+        <a href='https://github.com/dapadeveloper/air-quality-analysis' target='_blank' style='color: #38bdf8; font-weight: bold;'>Lihat di GitHub →</a>
+    </div>
+    <div class='card'>
+        <h4>🤖 Human Movement Detection</h4>
+        <p>Deteksi gerakan manusia real-time dengan YOLOv3.</p>
+        <a href='https://github.com/dapadeveloper' target='_blank' style='color: #38bdf8; font-weight: bold;'>Lihat di GitHub →</a>
     </div>
     """, unsafe_allow_html=True)
 
 elif selected == "Experience":
-    st.subheader("Experience")
-    st.info("Ketua Karang Taruna Cikeas Gardenia (2022-2023)")
-    st.info("Ketua MPK SMK 1 Gunung Putri (2021-2022)")
+    st.markdown("<h2 class='gradient-text'>Experience</h2>", unsafe_allow_html=True)
+    st.markdown("""
+    <div class='card'>
+        <h4>Ketua Karang Taruna - Cikeas Gardenia</h4>
+        <p style='color: #64748b;'>2022 - 2023</p>
+    </div>
+    <div class='card'>
+        <h4>Ketua MPK - SMK 1 Gunung Putri</h4>
+        <p style='color: #64748b;'>2021 - 2022</p>
+    </div>
+    """, unsafe_allow_html=True)
 
 elif selected == "Contact":
-    st.subheader("Hubungi Saya")
-    st.write("Email: Fahmifalah081120@gmail.com")
-    st.write("WhatsApp: +62 882-8959-2742")
+    st.markdown("<h2 class='gradient-text'>Contact Me</h2>", unsafe_allow_html=True)
+    st.markdown("""
+    <div class='card'>
+        <p>Email: Fahmifalah081120@gmail.com</p>
+        <p>📱 WhatsApp: +62 882-8959-2742</p>
+        <p>🐙 GitHub: dapadeveloper</p>
+    </div>
+    """, unsafe_allow_html=True)
