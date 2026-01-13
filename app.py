@@ -159,52 +159,63 @@ elif selected == "Experience":
 
 elif selected == "Contact":
     st.markdown("<h1 style='text-align: center; color: #facc15;'>Get In <span style='color: white;'>Touch</span></h1>", unsafe_allow_html=True)
-    st.markdown("<p style='text-align: center; color: #94a3b8; margin-bottom: 30px;'>I'm always open to discussing new opportunities and interesting projects.</p>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align: center; color: #f1f5f9; margin-bottom: 30px;'>I'm always open to discussing new opportunities and interesting projects.</p>", unsafe_allow_html=True)
 
-    # Membuka pembungkus utama (Kotak Kuning)
+    # Wadah utama (Kuning)
     st.markdown('<div style="background-color: #facc15; padding: 40px; border-radius: 20px; color: #0f172a;">', unsafe_allow_html=True)
     
-    # Gunakan kolom Streamlit untuk membagi layout
     col1, col2 = st.columns([1, 1.2], gap="large")
 
     with col1:
+        # Perbaikan: Warna teks dibuat Hitam Pekat (#000000) agar sangat kontras di atas kuning
         st.markdown("""
             <h2 style="color: #0f172a; font-weight: 800; margin-top: 0;">Let's work together</h2>
-            <p style="color: #334155; font-size: 16px; line-height: 1.6;">
+            <p style="color: #000000; font-size: 16px; line-height: 1.6; font-weight: 500;">
                 Whether you have a project in mind or just want to chat about technology, I'd love to hear from you. Feel free to reach out!
             </p>
             <div style="margin-top: 30px;">
                 <div style="display: flex; align-items: center; margin-bottom: 20px;">
                     <div style="background: #0f172a; color: #facc15; width: 40px; height: 40px; border-radius: 10px; display: flex; justify-content: center; align-items: center; margin-right: 15px;">📧</div>
-                    <div><b style="display: block; font-size: 14px;">Email</b> Fahmifalah081120@gmail.com</div>
+                    <div style="color: #0f172a;"><b style="display: block; font-size: 14px; color: #1e293b;">Email</b> Fahmifalah081120@gmail.com</div>
                 </div>
                 <div style="display: flex; align-items: center; margin-bottom: 20px;">
                     <div style="background: #0f172a; color: #facc15; width: 40px; height: 40px; border-radius: 10px; display: flex; justify-content: center; align-items: center; margin-right: 15px;">🐙</div>
-                    <div><b style="display: block; font-size: 14px;">GitHub</b> dapadeveloper</div>
+                    <div style="color: #0f172a;"><b style="display: block; font-size: 14px; color: #1e293b;">GitHub</b> dapadeveloper</div>
                 </div>
                 <div style="display: flex; align-items: center;">
                     <div style="background: #0f172a; color: #facc15; width: 40px; height: 40px; border-radius: 10px; display: flex; justify-content: center; align-items: center; margin-right: 15px;">📍</div>
-                    <div><b style="display: block; font-size: 14px;">Location</b> Pemalang, Indonesia</div>
+                    <div style="color: #0f172a;"><b style="display: block; font-size: 14px; color: #1e293b;">Location</b> Pemalang, Indonesia</div>
                 </div>
             </div>
         """, unsafe_allow_html=True)
 
     with col2:
-        # Membungkus form di dalam kotak gelap menggunakan CSS manual
-        st.markdown('<div style="background: #1e293b; padding: 30px; border-radius: 20px; color: white;">', unsafe_allow_html=True)
-        with st.form("contact_form", clear_on_submit=True):
-            st.markdown("<h3 style='color: #facc15; margin-top: 0;'>Send a Message</h3>", unsafe_allow_html=True)
-            name = st.text_input("Name")
-            email = st.text_input("Email")
-            msg = st.text_area("Message")
-            
-            submit = st.form_submit_button("🚀 Send Message")
-            if submit:
-                if name and email and msg:
-                    st.success("Message sent successfully!")
-                else:
-                    st.error("Please fill all fields.")
+        # Container Form Gelap
+        st.markdown('<div style="background: #1e293b; padding: 30px; border-radius: 20px; border: 1px solid #334155;">', unsafe_allow_html=True)
+        
+        # Perbaikan Label Form: Menggunakan markdown manual agar warna putih terlihat jelas
+        st.markdown("<p style='color: #facc15; margin-bottom: -15px; font-weight: bold;'>Nama Lengkap</p>", unsafe_allow_html=True)
+        name = st.text_input("", placeholder="Masukkan nama Anda", key="name")
+        
+        st.markdown("<p style='color: #facc15; margin-bottom: -15px; font-weight: bold;'>Email</p>", unsafe_allow_html=True)
+        email = st.text_input("", placeholder="nama@example.com", key="email")
+        
+        st.markdown("<p style='color: #facc15; margin-bottom: -15px; font-weight: bold;'>Pesan</p>", unsafe_allow_html=True)
+        msg = st.text_area("", placeholder="Halo Naufal, saya tertarik untuk...", key="msg")
+
+        # Logika Tombol WhatsApp
+        if st.button("🚀 SEND MESSAGE TO WHATSAPP", use_container_width=True):
+            if name and msg:
+                # Format pesan untuk WhatsApp
+                text = f"Halo Naufal, Nama saya {name}. %0A%0A{msg}"
+                wa_url = f"https://wa.me/6288289592742?text={text}"
+                
+                # Membuka link di tab baru menggunakan JavaScript
+                st.markdown(f'<meta http-equiv="refresh" content="0; url={wa_url}">', unsafe_allow_html=True)
+                st.success("Membuka WhatsApp...")
+            else:
+                st.error("Mohon isi Nama dan Pesan terlebih dahulu.")
+        
         st.markdown('</div>', unsafe_allow_html=True)
 
-    # Menutup pembungkus utama (Kotak Kuning)
     st.markdown('</div>', unsafe_allow_html=True)
