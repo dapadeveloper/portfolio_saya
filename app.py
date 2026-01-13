@@ -11,7 +11,7 @@ from io import BytesIO
 # =====================
 st.set_page_config(page_title="Naufal Daffa | Portfolio", page_icon="📊", layout="wide")
 
-# Fungsi untuk memproses gambar lokal agar bisa dimanipulasi CSS
+# Fungsi untuk memproses gambar agar bisa dimanipulasi CSS
 def get_image_base64(path):
     try:
         img = Image.open(path)
@@ -33,61 +33,82 @@ lottie_data = load_lottieurl("https://lottie.host/8086054a-7e61-4876-803a-345339
 img_base64 = get_image_base64("Profile.jpg")
 
 # =====================
-# CUSTOM CSS (FIX KONTRAS & LINGKARAN)
+# CUSTOM CSS (DARK THEME & GOLD ACCENT)
 # =====================
 st.markdown(f"""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
     
-    /* Perbaikan Font Global */
     html, body, [class*="css"] {{
         font-family: 'Plus Jakarta Sans', sans-serif;
+        background-color: #0f172a;
     }}
 
-    /* Perbaikan Sidebar agar Teks Terlihat Jelas */
+    /* Sidebar Styling - Terang agar kontras dengan Menu */
     section[data-testid="stSidebar"] {{
-        background-color: #f0f2f6 !important;
+        background-color: #f8fafc !important;
     }}
 
-    /* CSS untuk Foto Profile Lingkaran Sempurna */
-    .profile-img-container {{
+    /* Profile Frame (Double Border Emas seperti contoh) */
+    .profile-frame {{
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        padding: 12px;
+        background: linear-gradient(135deg, #facc15, #a16207);
         display: flex;
         justify-content: center;
-        margin-bottom: 20px;
-        margin-top: 10px;
+        align-items: center;
+        margin: auto;
     }}
-    .profile-img {{
-        width: 150px;
-        height: 150px;
-        border-radius: 50% !important;
+    .profile-img-inner {{
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        border: 6px solid #0f172a;
         object-fit: cover;
-        border: 4px solid #38bdf8;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }}
 
-    /* Styling Teks Menu Navigasi (Warna Gelap agar Kontras) */
+    /* Navigasi Sidebar - Teks Gelap agar Terlihat */
     .nav-link {{
-        color: #1e293b !important; /* Biru Gelap Tajam */
+        color: #1e293b !important;
         font-weight: 600 !important;
     }}
     .nav-link:hover {{
-        color: #38bdf8 !important;
-    }}
-    
-    /* Container untuk Experience & Skills */
-    .card {{
-        background: white;
-        padding: 20px;
-        border-radius: 15px;
-        border: 1px solid #e2e8f0;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        margin-bottom: 15px;
+        color: #eab308 !important;
     }}
 
-    .gradient-text {{
-        background: linear-gradient(90deg, #0ea5e9, #6366f1);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+    /* About Me Styling */
+    .about-text {{
+        color: #e2e8f0;
+        line-height: 1.8;
+        font-size: 17px;
+    }}
+    
+    .info-tag {{
+        display: inline-flex;
+        align-items: center;
+        background-color: #facc15;
+        color: #0f172a;
+        padding: 6px 16px;
+        border-radius: 20px;
+        font-weight: bold;
+        font-size: 14px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+    }}
+
+    /* Project & Experience Cards */
+    .card {{
+        background: rgba(255, 255, 255, 0.05);
+        padding: 25px;
+        border-radius: 15px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        margin-bottom: 20px;
+    }}
+    
+    .gold-text {{
+        color: #facc15;
         font-weight: 800;
     }}
 
@@ -99,106 +120,100 @@ st.markdown(f"""
 # SIDEBAR
 # =====================
 with st.sidebar:
-    # Menampilkan Foto Profile Lingkaran
     if img_base64:
         st.markdown(f"""
-            <div class="profile-img-container">
-                <img src="data:image/jepg;base64,{img_base64}" class="profile-img">
+            <div style="padding: 20px 0;">
+                <img src="data:image/jpeg;base64,{img_base64}" 
+                style="width:120px; height:120px; border-radius:50%; border:3px solid #eab308; display:block; margin:auto; object-fit:cover;">
             </div>
             """, unsafe_allow_html=True)
     
-    st.markdown("<h3 style='text-align: center; color: #0ea5e9; margin-bottom: 0;'>Naufal Daffa</h3>", unsafe_allow_html=True)
-    st.write("##")
-
-    # Navigasi Menu dengan Style Kontras
+    st.markdown("<h3 style='text-align: center; color: #1e293b;'>Naufal Daffa</h3>", unsafe_allow_html=True)
+    
     selected = option_menu(
         menu_title=None,
-        options=["Home", "Skills", "Projects", "Experience", "Contact"],
-        icons=["house", "cpu", "code-slash", "award", "envelope"],
+        options=["About Me", "Skills", "Projects", "Experience", "Contact"],
+        icons=["person", "cpu", "code-slash", "award", "envelope"],
         default_index=0,
         styles={
-            "container": {"padding": "0!important", "background-color": "transparent"},
-            "icon": {"color": "#64748b", "font-size": "18px"}, 
-            "nav-link": {
-                "font-size": "16px", 
-                "text-align": "left", 
-                "margin": "5px", 
-                "color": "#1e293b", # Warna teks utama menu
-                "--hover-color": "#e0f2fe"
-            },
-            "nav-link-selected": {
-                "background-color": "#38bdf8", 
-                "color": "white", # Warna teks saat aktif
-                "font-weight": "800"
-            },
+            "container": {"background-color": "transparent"},
+            "nav-link": {"font-size": "15px", "text-align": "left", "color": "#1e293b"},
+            "nav-link-selected": {"background-color": "#eab308", "color": "white"},
         }
     )
-    
     st.write("---")
-    st.markdown("<div style='background: #e0f2fe; padding: 15px; border-radius: 10px; color: #0369a1; font-size: 13px; text-align: center; font-weight: 600;'>Computer Science @ Gunadarma University</div>", unsafe_allow_html=True)
+    st.info(" Gunadarma University")
 
 # =====================
 # KONTEN UTAMA
 # =====================
-if selected == "Home":
-    col1, col2 = st.columns([2, 1])
-    with col1:
-        st.markdown("<br><br>", unsafe_allow_html=True)
-        st.markdown("<h3>Halo, Saya</h3>", unsafe_allow_html=True)
-        st.markdown("<h1><span class='gradient-text'>Naufal Daffa Abdu Al Hafidl</span></h1>", unsafe_allow_html=True)
-        st.write("Mahasiswa Computer Science yang berfokus pada **Data Analyst** dan **Machine Learning**. Berpengalaman dalam pengolahan data, analisis EDA, dan deployment dashboard.")
+
+if selected == "About Me":
+    st.markdown("<h1 class='gold-text'>About Me</h1>", unsafe_allow_html=True)
+    col1, col2 = st.columns([1.5, 1], gap="large")
     
+    with col1:
+        st.markdown(f"""
+        <div class="about-text">
+            <p>Halo! Saya <b>Naufal Daffa Abdu Al Hafidl</b>, mahasiswa Computer Science berusia 22 tahun dari Pemalang yang memiliki gairah besar dalam dunia <b>Data Science</b> dan <b>Machine Learning</b>.</p>
+            <p>Saya berfokus pada pengolahan data mentah menjadi wawasan yang bermakna (insights) menggunakan Python. Saya memiliki pengalaman dalam membangun dashboard interaktif serta model deteksi objek.</p>
+            <p>Selain teknis, pengalaman saya sebagai <b>Ketua Karang Taruna</b> dan <b>Ketua MPK</b> telah membentuk jiwa kepemimpinan dan kemampuan komunikasi saya dalam tim.</p>
+            <br>
+            <div class="info-tag"> Clean Code</div>
+            <div class="info-tag"> Coffee Lover</div>
+            <div class="info-tag"> Team Player</div>
+            <div class="info-tag"> Problem Solver</div>
+            <div class="info-tag"> Pemalang, Indonesia</div>
+        </div>
+        """, unsafe_allow_html=True)
+
     with col2:
-        if lottie_data:
-            st_lottie(lottie_data, height=300, key="home")
-        else:
-            st.markdown("<br><br>", unsafe_allow_html=True)
-            st.info("💡 Fokus pada solusi berbasis data.")
+        if img_base64:
+            st.markdown(f"""
+            <div class="profile-frame">
+                <img src="data:image/jpeg;base64,{img_base64}" class="profile-img-inner">
+            </div>
+            """, unsafe_allow_html=True)
 
 elif selected == "Skills":
-    st.markdown("<h2 class='gradient-text'>Technical Skills</h2>", unsafe_allow_html=True)
-    c1, c2 = st.columns(2)
-    with c1:
-        st.markdown("""<div class='card'><h4>Programming</h4>
-        Python, SQL, HTML, CSS, JavaScript, Java, PHP (Laravel)</div>""", unsafe_allow_html=True)
-    with c2:
-        st.markdown("""<div class='card'><h4>Tools & Others</h4>
-        Pandas, Scikit-Learn, OpenCV, YOLOv3, Git/GitHub, Streamlit, Figma</div>""", unsafe_allow_html=True)
+    st.markdown("<h2 class='gold-text'>Technical Skills</h2>", unsafe_allow_html=True)
+    col1, col2 = st.columns(2)
+    with col1:
+        st.markdown("""<div class='card'><h4>Languages</h4>
+        <p style='color: #cbd5e1;'>Python, SQL, HTML/CSS, JavaScript, Java, PHP (Laravel)</p></div>""", unsafe_allow_html=True)
+    with col2:
+        st.markdown("""<div class='card'><h4>Frameworks & Tools</h4>
+        <p style='color: #cbd5e1;'>Pandas, Scikit-Learn, Streamlit, OpenCV, YOLO, Git, Figma</p></div>""", unsafe_allow_html=True)
 
 elif selected == "Projects":
-    st.markdown("<h2 class='gradient-text'>Highlighted Projects</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 class='gold-text'>Projects</h2>", unsafe_allow_html=True)
     st.markdown("""
     <div class='card'>
-        <h4>📊 Air Quality Analysis</h4>
-        <p>Analisis tren polusi udara PM2.5 menggunakan Python dan Streamlit.</p>
-        <a href='https://github.com/dapadeveloper/air-quality-analysis' target='_blank' style='color: #38bdf8; font-weight: bold;'>Lihat di GitHub →</a>
-    </div>
-    <div class='card'>
-        <h4>🤖 Human Movement Detection</h4>
-        <p>Deteksi gerakan manusia real-time dengan YOLOv3.</p>
-        <a href='https://github.com/dapadeveloper' target='_blank' style='color: #38bdf8; font-weight: bold;'>Lihat di GitHub →</a>
+        <h4 style='color:#facc15;'> Air Quality Analysis</h4>
+        <p style='color:#cbd5e1;'>Dashboard interaktif untuk memantau polusi udara menggunakan dataset real-time.</p>
+        <a href='https://github.com/dapadeveloper/air-quality-analysis' target='_blank' style='color:#eab308; font-weight:bold;'>View Project →</a>
     </div>
     """, unsafe_allow_html=True)
 
 elif selected == "Experience":
-    st.markdown("<h2 class='gradient-text'>Experience</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 class='gold-text'>Experience</h2>", unsafe_allow_html=True)
     st.markdown("""
     <div class='card'>
-        <h4>Ketua Karang Taruna - Cikeas Gardenia</h4>
-        <p style='color: #64748b;'>2022 - 2023</p>
+        <h4 style='color:#facc15;'>Ketua Karang Taruna</h4>
+        <p style='color:#cbd5e1;'>Cikeas Gardenia (2022 - 2023)</p>
     </div>
     <div class='card'>
-        <h4>Ketua MPK - SMK 1 Gunung Putri</h4>
-        <p style='color: #64748b;'>2021 - 2022</p>
+        <h4 style='color:#facc15;'>Ketua MPK</h4>
+        <p style='color:#cbd5e1;'>SMK 1 Gunung Putri (2021 - 2022)</p>
     </div>
     """, unsafe_allow_html=True)
 
 elif selected == "Contact":
-    st.markdown("<h2 class='gradient-text'>Contact Me</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 class='gold-text'>Contact</h2>", unsafe_allow_html=True)
     st.markdown("""
     <div class='card'>
-        <p>Email: Fahmifalah081120@gmail.com</p>
-        <p>📱 WhatsApp: +62 882-8959-2742</p>
-        <p>🐙 GitHub: dapadeveloper</p>
+        <p style='color:#cbd5e1;'> Email: Fahmifalah081120@gmail.com</p>
+        <p style='color:#cbd5e1;'> WhatsApp: +62 882-8959-2742</p>
+        <p style='color:#cbd5e1;'> GitHub: dapadeveloper</p>
     </div>
     """, unsafe_allow_html=True)
