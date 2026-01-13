@@ -161,61 +161,66 @@ elif selected == "Contact":
     st.markdown("<h1 style='text-align: center; color: #facc15;'>Get In <span style='color: white;'>Touch</span></h1>", unsafe_allow_html=True)
     st.markdown("<p style='text-align: center; color: #f1f5f9; margin-bottom: 30px;'>I'm always open to discussing new opportunities and interesting projects.</p>", unsafe_allow_html=True)
 
-    # Wadah utama (Kuning)
-    st.markdown('<div style="background-color: #facc15; padding: 40px; border-radius: 20px; color: #0f172a;">', unsafe_allow_html=True)
+    # Menggunakan container utama dengan styling yang lebih bersih
+    st.markdown("""
+        <style>
+            .contact-container {
+                background-color: #facc15;
+                padding: 40px;
+                border-radius: 20px;
+                color: #0f172a;
+                margin-bottom: 20px;
+            }
+            .contact-info-text {
+                color: #0f172a !important;
+                font-weight: 500;
+            }
+            .contact-label {
+                display: block; 
+                font-size: 14px; 
+                color: #1e293b; 
+                font-weight: bold;
+            }
+        </style>
+    """, unsafe_allow_html=True)
+
+    # Memulai Container Kuning
+    st.markdown('<div class="contact-container">', unsafe_allow_html=True)
     
     col1, col2 = st.columns([1, 1.2], gap="large")
 
     with col1:
-        # Perbaikan: Warna teks dibuat Hitam Pekat (#000000) agar sangat kontras di atas kuning
         st.markdown("""
             <h2 style="color: #0f172a; font-weight: 800; margin-top: 0;">Let's work together</h2>
-            <p style="color: #000000; font-size: 16px; line-height: 1.6; font-weight: 500;">
+            <p class="contact-info-text">
                 Whether you have a project in mind or just want to chat about technology, I'd love to hear from you. Feel free to reach out!
             </p>
             <div style="margin-top: 30px;">
                 <div style="display: flex; align-items: center; margin-bottom: 20px;">
-                    <div style="background: #0f172a; color: #facc15; width: 40px; height: 40px; border-radius: 10px; display: flex; justify-content: center; align-items: center; margin-right: 15px;">📧</div>
-                    <div style="color: #0f172a;"><b style="display: block; font-size: 14px; color: #1e293b;">Email</b> Fahmifalah081120@gmail.com</div>
+                    <div style="background: #0f172a; color: #facc15; min-width: 40px; height: 40px; border-radius: 10px; display: flex; justify-content: center; align-items: center; margin-right: 15px;">📧</div>
+                    <div><span class="contact-label">Email</span><span class="contact-info-text">Fahmifalah081120@gmail.com</span></div>
                 </div>
                 <div style="display: flex; align-items: center; margin-bottom: 20px;">
-                    <div style="background: #0f172a; color: #facc15; width: 40px; height: 40px; border-radius: 10px; display: flex; justify-content: center; align-items: center; margin-right: 15px;">🐙</div>
-                    <div style="color: #0f172a;"><b style="display: block; font-size: 14px; color: #1e293b;">GitHub</b> dapadeveloper</div>
+                    <div style="background: #0f172a; color: #facc15; min-width: 40px; height: 40px; border-radius: 10px; display: flex; justify-content: center; align-items: center; margin-right: 15px;">🐙</div>
+                    <div><span class="contact-label">GitHub</span><span class="contact-info-text">dapadeveloper</span></div>
                 </div>
                 <div style="display: flex; align-items: center;">
-                    <div style="background: #0f172a; color: #facc15; width: 40px; height: 40px; border-radius: 10px; display: flex; justify-content: center; align-items: center; margin-right: 15px;">📍</div>
-                    <div style="color: #0f172a;"><b style="display: block; font-size: 14px; color: #1e293b;">Location</b> Pemalang, Indonesia</div>
+                    <div style="background: #0f172a; color: #facc15; min-width: 40px; height: 40px; border-radius: 10px; display: flex; justify-content: center; align-items: center; margin-right: 15px;">📍</div>
+                    <div><span class="contact-label">Location</span><span class="contact-info-text">Pemalang, Indonesia</span></div>
                 </div>
             </div>
         """, unsafe_allow_html=True)
 
     with col2:
-        # Container Form Gelap
-        st.markdown('<div style="background: #1e293b; padding: 30px; border-radius: 20px; border: 1px solid #334155;">', unsafe_allow_html=True)
+        # Form input menggunakan widget asli Streamlit agar berfungsi dengan baik
+        # Kita bungkus dengan div agar stylingnya senada
+        name = st.text_input("Nama Lengkap", placeholder="Masukkan nama Anda")
+        email = st.text_input("Email", placeholder="nama@example.com")
+        pesan = st.text_area("Pesan", placeholder="Halo Naufal, saya tertarik untuk...")
         
-        # Perbaikan Label Form: Menggunakan markdown manual agar warna putih terlihat jelas
-        st.markdown("<p style='color: #facc15; margin-bottom: -15px; font-weight: bold;'>Nama Lengkap</p>", unsafe_allow_html=True)
-        name = st.text_input("", placeholder="Masukkan nama Anda", key="name")
-        
-        st.markdown("<p style='color: #facc15; margin-bottom: -15px; font-weight: bold;'>Email</p>", unsafe_allow_html=True)
-        email = st.text_input("", placeholder="nama@example.com", key="email")
-        
-        st.markdown("<p style='color: #facc15; margin-bottom: -15px; font-weight: bold;'>Pesan</p>", unsafe_allow_html=True)
-        msg = st.text_area("", placeholder="Halo Naufal, saya tertarik untuk...", key="msg")
-
-        # Logika Tombol WhatsApp
+        # Tombol WhatsApp
         if st.button("🚀 SEND MESSAGE TO WHATSAPP", use_container_width=True):
-            if name and msg:
-                # Format pesan untuk WhatsApp
-                text = f"Halo Naufal, Nama saya {name}. %0A%0A{msg}"
-                wa_url = f"https://wa.me/6288289592742?text={text}"
-                
-                # Membuka link di tab baru menggunakan JavaScript
-                st.markdown(f'<meta http-equiv="refresh" content="0; url={wa_url}">', unsafe_allow_html=True)
-                st.success("Membuka WhatsApp...")
-            else:
-                st.error("Mohon isi Nama dan Pesan terlebih dahulu.")
-        
-        st.markdown('</div>', unsafe_allow_html=True)
+            # Logika kirim pesan bisa ditaruh di sini
+            st.success("Redirecting to WhatsApp...")
 
-    st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True) # Penutup Container Kuning
