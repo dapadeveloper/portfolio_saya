@@ -176,9 +176,11 @@ elif selected == "Contact":
                 border-radius: 20px;
                 margin-bottom: 20px;
             }
+            /* PERBAIKAN: Font isian detail diubah menjadi PUTIH */
             .info-text {
-                color: #000000 !important;
+                color: #ffffff !important; 
                 font-weight: 600;
+                text-shadow: 1px 1px 2px rgba(0,0,0,0.3); /* Tambahan shadow agar teks putih lebih 'keluar' */
             }
             .info-header {
                 color: #1e293b;
@@ -190,10 +192,8 @@ elif selected == "Contact":
     """, unsafe_allow_html=True)
 
     # --- 2. MULAI CONTAINER KUNING ---
-    # Kita buka div pembungkus di sini
     st.markdown('<div class="yellow-card-bg">', unsafe_allow_html=True)
     
-    # Buat kolom di DALAM container kuning
     col1, col2 = st.columns([1, 1.2], gap="large")
 
     with col1:
@@ -229,5 +229,4 @@ elif selected == "Contact":
             st.success("Pesan terkirim!")
 
     # --- 3. TUTUP CONTAINER KUNING ---
-    # Pastikan tag penutup ini ada di paling bawah setelah col2
     st.markdown('</div>', unsafe_allow_html=True)
