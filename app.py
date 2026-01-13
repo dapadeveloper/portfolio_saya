@@ -158,48 +158,70 @@ elif selected == "Experience":
     st.markdown("<div class='skill-card' style='margin-top:15px;'><h3>Ketua MPK</h3><p style='color:#facc15'>SMK 1 Gunung Putri (2021-2022)</p></div>", unsafe_allow_html=True)
 
 elif selected == "Contact":
-    st.markdown("<h1 style='text-align: center; color: #facc15;'>Get In <span style='color: white;'>Touch</span></h1>", unsafe_allow_html=True)
-    st.markdown("<p style='text-align: center; color: #94a3b8; margin-bottom: 30px;'>I'm always open to discussing new opportunities and interesting projects.</p>", unsafe_allow_html=True)
+    # Judul Seksi dengan aksen warna
+    st.markdown("<h1 style='text-align: center; color: white; margin-bottom: 5px;'>Let's <span style='color: #facc15;'>Connect</span></h1>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align: center; color: #94a3b8; margin-bottom: 40px;'>Tertarik berkolaborasi atau sekadar menyapa? Saya siap membantu.</p>", unsafe_allow_html=True)
 
-    # Wadah utama dengan latar belakang kuning yang bersih
+    # Container Utama Kuning (Aksen utama dari gambar referensi)
     st.markdown("""
-    <div style="background-color: #facc15; padding: 40px; border-radius: 20px; color: #0f172a;">
-        <div style="display: flex; flex-wrap: wrap; gap: 40px;">
+    <div style="background-color: #facc15; padding: 50px; border-radius: 30px; color: #0f172a; box-shadow: 0 20px 40px rgba(0,0,0,0.3);">
+        <div style="display: flex; flex-wrap: wrap; gap: 50px; align-items: flex-start;">
+            
             <div style="flex: 1; min-width: 300px;">
-                <h2 style="color: #0f172a; font-weight: 800; margin-top: 0;">Let's work together</h2>
-                <p style="color: #334155; font-size: 16px; line-height: 1.6;">
-                    Whether you have a project in mind or just want to chat about technology, I'd love to hear from you. Feel free to reach out!
+                <h2 style="color: #0f172a; font-weight: 800; font-size: 32px; margin-bottom: 20px;">Reach Out to Me</h2>
+                <p style="font-size: 16px; line-height: 1.8; color: #1e293b; margin-bottom: 35px;">
+                    Saya selalu terbuka untuk diskusi mengenai <b>Data Science</b>, <b>Web Development</b>, atau peluang kerja sama lainnya. Jangan ragu untuk menghubungi melalui detail di bawah ini.
                 </p>
-                <div style="margin-top: 30px;">
-                    <div style="display: flex; align-items: center; margin-bottom: 20px;">
-                        <div style="background: #0f172a; color: #facc15; width: 40px; height: 40px; border-radius: 10px; display: flex; justify-content: center; align-items: center; margin-right: 15px;">📧</div>
-                        <div><b style="display: block; font-size: 14px;">Email</b> Fahmifalah081120@gmail.com</div>
+                
+                <div style="display: flex; align-items: center; margin-bottom: 25px;">
+                    <div style="background: #0f172a; width: 50px; height: 50px; border-radius: 12px; display: flex; justify-content: center; align-items: center; margin-right: 20px; font-size: 22px;">📧</div>
+                    <div>
+                        <div style="font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: #475569;">Email Official</div>
+                        <div style="font-size: 17px; font-weight: 600;">Fahmifalah081120@gmail.com</div>
                     </div>
-                    <div style="display: flex; align-items: center; margin-bottom: 20px;">
-                        <div style="background: #0f172a; color: #facc15; width: 40px; height: 40px; border-radius: 10px; display: flex; justify-content: center; align-items: center; margin-right: 15px;">🐙</div>
-                        <div><b style="display: block; font-size: 14px;">GitHub</b> dapadeveloper</div>
+                </div>
+                
+                <div style="display: flex; align-items: center; margin-bottom: 25px;">
+                    <div style="background: #0f172a; width: 50px; height: 50px; border-radius: 12px; display: flex; justify-content: center; align-items: center; margin-right: 20px; font-size: 22px;">🐙</div>
+                    <div>
+                        <div style="font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: #475569;">GitHub Profile</div>
+                        <div style="font-size: 17px; font-weight: 600;">github.com/dapadeveloper</div>
                     </div>
-                    <div style="display: flex; align-items: center;">
-                        <div style="background: #0f172a; color: #facc15; width: 40px; height: 40px; border-radius: 10px; display: flex; justify-content: center; align-items: center; margin-right: 15px;">📍</div>
-                        <div><b style="display: block; font-size: 14px;">Location</b> Pemalang, Indonesia</div>
+                </div>
+                
+                <div style="display: flex; align-items: center;">
+                    <div style="background: #0f172a; width: 50px; height: 50px; border-radius: 12px; display: flex; justify-content: center; align-items: center; margin-right: 20px; font-size: 22px;">📍</div>
+                    <div>
+                        <div style="font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: #475569;">Current Location</div>
+                        <div style="font-size: 17px; font-weight: 600;">Pemalang, Jawa Tengah, Indonesia</div>
                     </div>
                 </div>
             </div>
-            <div id="form-container" style="flex: 1.2; min-width: 300px; background: #1e293b; padding: 30px; border-radius: 20px; color: white;">
+
+            <div style="flex: 1.2; min-width: 320px; background: #1e293b; padding: 40px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
     """, unsafe_allow_html=True)
 
+    # Mengintegrasikan Streamlit Form ke dalam kolom kanan kustom
     with st.container():
-        col1, col2 = st.columns([1, 1.2])
-        with col2:
-            with st.form("contact_form", clear_on_submit=True):
-                st.markdown("<h3 style='color: #facc15; margin-top: 0;'>Send a Message</h3>", unsafe_allow_html=True)
-                name = st.text_input("Name")
-                email = st.text_input("Email")
-                msg = st.text_area("Message")
+        # Membuat kolom transparan agar form streamlit mendarat tepat di atas box gelap CSS
+        _, col_form = st.columns([1, 1.25])
+        with col_form:
+            with st.form("contact_form_new", clear_on_submit=True):
+                st.markdown("<h3 style='color: #facc15; margin-bottom: 20px; margin-top: 0;'>Send a Message</h3>", unsafe_allow_html=True)
                 
-                # Tombol kustom
-                submit = st.form_submit_button("🚀 Send Message")
-                if submit:
-                    st.success("Message sent successfully!")
+                # Input Field dengan label yang kontras
+                name = st.text_input("Full Name", placeholder="Masukkan nama lengkap Anda")
+                email = st.text_input("Email Address", placeholder="nama@email.com")
+                message = st.text_area("Your Message", placeholder="Tuliskan pesan atau penawaran Anda di sini...", height=120)
+                
+                # Tombol submit yang menyerupai referensi
+                submit_button = st.form_submit_button("🚀 KIRIM PESAN")
+                
+                if submit_button:
+                    if name and email and message:
+                        st.success(f"Terima kasih {name}! Pesan Anda telah berhasil dikirim.")
+                    else:
+                        st.error("Mohon lengkapi semua bidang sebelum mengirim.")
 
+    # Menutup tag HTML div container
     st.markdown("</div></div></div>", unsafe_allow_html=True)
