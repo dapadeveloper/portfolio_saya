@@ -161,51 +161,66 @@ elif selected == "Contact":
     st.markdown("<h1 style='text-align: center; color: #facc15;'>Get In <span style='color: white;'>Touch</span></h1>", unsafe_allow_html=True)
     st.markdown("<p style='text-align: center; color: #f1f5f9; margin-bottom: 30px;'>I'm always open to discussing new opportunities and interesting projects.</p>", unsafe_allow_html=True)
 
-    # 1. Buka Container Kuning (Pastikan mencakup semua kolom)
+    # Menggunakan container utama dengan styling yang lebih bersih
     st.markdown("""
-        <div style="background-color: #facc15; padding: 40px; border-radius: 20px; color: #0f172a;">
+        <style>
+            .contact-container {
+                background-color: #facc15;
+                padding: 40px;
+                border-radius: 20px;
+                color: #0f172a;
+                margin-bottom: 20px;
+            }
+            .contact-info-text {
+                color: #0f172a !important;
+                font-weight: 500;
+            }
+            .contact-label {
+                display: block; 
+                font-size: 14px; 
+                color: #1e293b; 
+                font-weight: bold;
+            }
+        </style>
     """, unsafe_allow_html=True)
+
+    # Memulai Container Kuning
+    st.markdown('<div class="contact-container">', unsafe_allow_html=True)
     
-    # 2. Buat kolom di DALAM container kuning
     col1, col2 = st.columns([1, 1.2], gap="large")
 
     with col1:
         st.markdown("""
             <h2 style="color: #0f172a; font-weight: 800; margin-top: 0;">Let's work together</h2>
-            <p style="color: #1e293b; font-size: 16px; margin-bottom: 30px;">
-                Whether you have a project in mind or just want to chat about technology, I'd love to hear from you.
+            <p class="contact-info-text">
+                Whether you have a project in mind or just want to chat about technology, I'd love to hear from you. Feel free to reach out!
             </p>
-            <div style="margin-top: 20px;">
+            <div style="margin-top: 30px;">
                 <div style="display: flex; align-items: center; margin-bottom: 20px;">
-                    <div style="background: #0f172a; color: #facc15; width: 40px; height: 40px; border-radius: 10px; display: flex; justify-content: center; align-items: center; margin-right: 15px;">📧</div>
-                    <div><b style="color: #1e293b; font-size: 14px; display: block;">Email</b><span style="color: #000000; font-weight: 600;">Fahmifalah081120@gmail.com</span></div>
+                    <div style="background: #0f172a; color: #facc15; min-width: 40px; height: 40px; border-radius: 10px; display: flex; justify-content: center; align-items: center; margin-right: 15px;">📧</div>
+                    <div><span class="contact-label">Email</span><span class="contact-info-text">Fahmifalah081120@gmail.com</span></div>
                 </div>
                 <div style="display: flex; align-items: center; margin-bottom: 20px;">
-                    <div style="background: #0f172a; color: #facc15; width: 40px; height: 40px; border-radius: 10px; display: flex; justify-content: center; align-items: center; margin-right: 15px;">🐙</div>
-                    <div><b style="color: #1e293b; font-size: 14px; display: block;">GitHub</b><span style="color: #000000; font-weight: 600;">dapadeveloper</span></div>
+                    <div style="background: #0f172a; color: #facc15; min-width: 40px; height: 40px; border-radius: 10px; display: flex; justify-content: center; align-items: center; margin-right: 15px;">🐙</div>
+                    <div><span class="contact-label">GitHub</span><span class="contact-info-text">dapadeveloper</span></div>
                 </div>
-                <div style="display: flex; align-items: center; margin-bottom: 20px;">
-                    <div style="background: #0f172a; color: #facc15; width: 40px; height: 40px; border-radius: 10px; display: flex; justify-content: center; align-items: center; margin-right: 15px;">📍</div>
-                    <div><b style="color: #1e293b; font-size: 14px; display: block;">Location</b><span style="color: #000000; font-weight: 600;">Pemalang, Indonesia</span></div>
+                <div style="display: flex; align-items: center;">
+                    <div style="background: #0f172a; color: #facc15; min-width: 40px; height: 40px; border-radius: 10px; display: flex; justify-content: center; align-items: center; margin-right: 15px;">📍</div>
+                    <div><span class="contact-label">Location</span><span class="contact-info-text">Pemalang, Indonesia</span></div>
                 </div>
             </div>
         """, unsafe_allow_html=True)
 
     with col2:
-        # Gunakan CSS khusus agar label input di dalam kotak kuning berwarna gelap (bisa dibaca)
-        st.markdown("""
-            <style>
-                label { color: #0f172a !important; font-weight: bold !important; }
-                .stButton>button { background-color: #0f172a !important; color: #facc15 !important; border: none !important; }
-            </style>
-        """, unsafe_allow_html=True)
-        
+        # Form input menggunakan widget asli Streamlit agar berfungsi dengan baik
+        # Kita bungkus dengan div agar stylingnya senada
         name = st.text_input("Nama Lengkap", placeholder="Masukkan nama Anda")
-        email = st.text_input("Email Address", placeholder="nama@example.com")
+        email = st.text_input("Email", placeholder="nama@example.com")
         pesan = st.text_area("Pesan", placeholder="Halo Naufal, saya tertarik untuk...")
         
+        # Tombol WhatsApp
         if st.button("🚀 SEND MESSAGE TO WHATSAPP", use_container_width=True):
-            st.write("Mengarahkan ke WhatsApp...")
+            # Logika kirim pesan bisa ditaruh di sini
+            st.success("Redirecting to WhatsApp...")
 
-    # 3. Tutup Container Kuning (Wajib di paling bawah)
-    st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True) # Penutup Container Kuning
