@@ -161,45 +161,50 @@ elif selected == "Contact":
     st.markdown("<h1 style='text-align: center; color: #facc15;'>Get In <span style='color: white;'>Touch</span></h1>", unsafe_allow_html=True)
     st.markdown("<p style='text-align: center; color: #94a3b8; margin-bottom: 30px;'>I'm always open to discussing new opportunities and interesting projects.</p>", unsafe_allow_html=True)
 
-    # Wadah utama dengan latar belakang kuning yang bersih
-    st.markdown("""
-    <div style="background-color: #facc15; padding: 40px; border-radius: 20px; color: #0f172a;">
-        <div style="display: flex; flex-wrap: wrap; gap: 40px;">
-            <div style="flex: 1; min-width: 300px;">
-                <h2 style="color: #0f172a; font-weight: 800; margin-top: 0;">Let's work together</h2>
-                <p style="color: #334155; font-size: 16px; line-height: 1.6;">
-                    Whether you have a project in mind or just want to chat about technology, I'd love to hear from you. Feel free to reach out!
-                </p>
-                <div style="margin-top: 30px;">
-                    <div style="display: flex; align-items: center; margin-bottom: 20px;">
-                        <div style="background: #0f172a; color: #facc15; width: 40px; height: 40px; border-radius: 10px; display: flex; justify-content: center; align-items: center; margin-right: 15px;">📧</div>
-                        <div><b style="display: block; font-size: 14px;">Email</b> Fahmifalah081120@gmail.com</div>
-                    </div>
-                    <div style="display: flex; align-items: center; margin-bottom: 20px;">
-                        <div style="background: #0f172a; color: #facc15; width: 40px; height: 40px; border-radius: 10px; display: flex; justify-content: center; align-items: center; margin-right: 15px;">🐙</div>
-                        <div><b style="display: block; font-size: 14px;">GitHub</b> dapadeveloper</div>
-                    </div>
-                    <div style="display: flex; align-items: center;">
-                        <div style="background: #0f172a; color: #facc15; width: 40px; height: 40px; border-radius: 10px; display: flex; justify-content: center; align-items: center; margin-right: 15px;">📍</div>
-                        <div><b style="display: block; font-size: 14px;">Location</b> Pemalang, Indonesia</div>
-                    </div>
+    # Membuka pembungkus utama (Kotak Kuning)
+    st.markdown('<div style="background-color: #facc15; padding: 40px; border-radius: 20px; color: #0f172a;">', unsafe_allow_html=True)
+    
+    # Gunakan kolom Streamlit untuk membagi layout
+    col1, col2 = st.columns([1, 1.2], gap="large")
+
+    with col1:
+        st.markdown("""
+            <h2 style="color: #0f172a; font-weight: 800; margin-top: 0;">Let's work together</h2>
+            <p style="color: #334155; font-size: 16px; line-height: 1.6;">
+                Whether you have a project in mind or just want to chat about technology, I'd love to hear from you. Feel free to reach out!
+            </p>
+            <div style="margin-top: 30px;">
+                <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                    <div style="background: #0f172a; color: #facc15; width: 40px; height: 40px; border-radius: 10px; display: flex; justify-content: center; align-items: center; margin-right: 15px;">📧</div>
+                    <div><b style="display: block; font-size: 14px;">Email</b> Fahmifalah081120@gmail.com</div>
+                </div>
+                <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                    <div style="background: #0f172a; color: #facc15; width: 40px; height: 40px; border-radius: 10px; display: flex; justify-content: center; align-items: center; margin-right: 15px;">🐙</div>
+                    <div><b style="display: block; font-size: 14px;">GitHub</b> dapadeveloper</div>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <div style="background: #0f172a; color: #facc15; width: 40px; height: 40px; border-radius: 10px; display: flex; justify-content: center; align-items: center; margin-right: 15px;">📍</div>
+                    <div><b style="display: block; font-size: 14px;">Location</b> Pemalang, Indonesia</div>
                 </div>
             </div>
-            <div id="form-container" style="flex: 1.2; min-width: 300px; background: #1e293b; padding: 30px; border-radius: 20px; color: white;">
-    """, unsafe_allow_html=True)
+        """, unsafe_allow_html=True)
 
-    with st.container():
-        col1, col2 = st.columns([1, 1.2])
-        with col2:
-            with st.form("contact_form", clear_on_submit=True):
-                st.markdown("<h3 style='color: #facc15; margin-top: 0;'>Send a Message</h3>", unsafe_allow_html=True)
-                name = st.text_input("Name")
-                email = st.text_input("Email")
-                msg = st.text_area("Message")
-                
-                # Tombol kustom
-                submit = st.form_submit_button("🚀 Send Message")
-                if submit:
+    with col2:
+        # Membungkus form di dalam kotak gelap menggunakan CSS manual
+        st.markdown('<div style="background: #1e293b; padding: 30px; border-radius: 20px; color: white;">', unsafe_allow_html=True)
+        with st.form("contact_form", clear_on_submit=True):
+            st.markdown("<h3 style='color: #facc15; margin-top: 0;'>Send a Message</h3>", unsafe_allow_html=True)
+            name = st.text_input("Name")
+            email = st.text_input("Email")
+            msg = st.text_area("Message")
+            
+            submit = st.form_submit_button("🚀 Send Message")
+            if submit:
+                if name and email and msg:
                     st.success("Message sent successfully!")
+                else:
+                    st.error("Please fill all fields.")
+        st.markdown('</div>', unsafe_allow_html=True)
 
-    st.markdown("</div></div></div>", unsafe_allow_html=True)
+    # Menutup pembungkus utama (Kotak Kuning)
+    st.markdown('</div>', unsafe_allow_html=True)
