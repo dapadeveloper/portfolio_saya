@@ -135,11 +135,11 @@ with st.sidebar:
         options=["About Me", "Skills", "Projects", "Experience", "Contact"],
         icons=["person-fill", "cpu-fill", "code-slash", "award-fill", "envelope-fill"],
         default_index=0,
-        styles={{
-            "container": {{"background-color": "transparent", "padding": "0"}},
-            "nav-link": {{"font-size": "15px", "text-align": "left", "color": "#94a3b8"}},
-            "nav-link-selected": {{"background-color": "#facc15", "color": "#0f172a", "font-weight": "800"}},
-        }}
+        styles={
+            "container": {"background-color": "transparent", "padding": "0"},
+            "nav-link": {"font-size": "15px", "text-align": "left", "color": "#94a3b8"},
+            "nav-link-selected": {"background-color": "#facc15", "color": "#0f172a", "font-weight": "800"},
+        }
     )
 
 # =====================
