@@ -1,9 +1,11 @@
+# app.py
 import streamlit as st
 import pandas as pd
 from datetime import datetime
 
 st.set_page_config(
     page_title="Naufal Daffa | Data Analyst & Machine Learning",
+    page_icon="📊",
     layout="wide",
 )
 
@@ -13,16 +15,61 @@ st.set_page_config(
 st.markdown(
     """
     <style>
-    .main {background-color: #0e1117;}
-    h1, h2, h3, h4 {color: #ffffff;}
-    p, li {color: #d1d5db; font-size: 16px;}
-    .card {
-        background-color: #161b22;
-        padding: 20px;
-        border-radius: 18px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-        margin-bottom: 20px;
+    /* Global background */
+    .main {
+        background: linear-gradient(120deg, #0f172a, #020617);
     }
+
+    /* Typography */
+    h1 {
+        color: #f8fafc;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+    }
+    h2, h3, h4 {
+        color: #e5e7eb;
+        font-weight: 700;
+    }
+    p, li {
+        color: #cbd5e1;
+        font-size: 16px;
+        line-height: 1.7;
+    }
+
+    /* Card styling */
+    .card {
+        background: linear-gradient(145deg, #020617, #020617);
+        border: 1px solid #1e293b;
+        padding: 28px;
+        border-radius: 22px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.55);
+        margin-bottom: 28px;
+    }
+ 
+    /* Highlight text */
+    .highlight {
+        color: #38bdf8;
+        font-weight: 600;
+    }
+
+    /* Metric text */
+    [data-testid="stMetricValue"] {
+        color: #f8fafc;
+        font-size: 28px;
+        font-weight: 800;
+    }
+    [data-testid="stMetricLabel"] {
+        color: #94a3b8;
+    }
+
+    /* Sidebar */
+    section[data-testid="stSidebar"] {
+        background: linear-gradient(180deg, #020617, #020617);
+        border-right: 1px solid #1e293b;
+    }
+
+    /* Remove clutter */
+    header, footer {visibility: hidden;}
     </style>
     """,
     unsafe_allow_html=True
@@ -175,8 +222,8 @@ elif menu == "Contact":
     st.markdown("""
     <div class='card'>
     <h2>Contact</h2>
-    <p>Email: Fahmifalah081120@gmail.com</p>
-    <p>WhatsApp: +62 882-8959-2742</p>
-    <p>GitHub: github.com/dapadeveloper</p>
+    <p>📧 Email: Fahmifalah081120@gmail.com</p>
+    <p>📱 WhatsApp: +62 882-8959-2742</p>
+    <p>🐙 GitHub: github.com/dapadeveloper</p>
     </div>
     """, unsafe_allow_html=True)
