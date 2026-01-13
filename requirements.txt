@@ -2,3 +2,4 @@ streamlit
 streamlit-option-menu
 streamlit-lottie
 requests
+Pillow

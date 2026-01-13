@@ -2,6 +2,7 @@ import streamlit as st
 import requests
 from streamlit_lottie import st_lottie
 from streamlit_option_menu import option_menu
+from PIL import Image
 
 # =====================
 # CONFIG & ASSETS
@@ -91,7 +92,21 @@ st.markdown("""
 # SIDEBAR
 # =====================
 with st.sidebar:
-    st.markdown("<h2 class='gradient-text'>Naufal Daffa</h2>", unsafe_allow_html=True)
+    # Menggunakan Pillow untuk membuka foto
+    try:
+        img = Image.open("Profile.jpg")
+        
+        # Membuat 3 kolom agar foto berada di tengah (centering)
+        col1, col2, col3 = st.columns([1, 2, 1])
+        with col2:
+            st.image(img, use_container_width=True) # Versi terbaru streamlit
+            # Jika versi lama gunakan: st.image(img, use_column_width=True)
+            
+    except Exception as e:
+        st.error("Gagal memuat foto. Pastikan nama file 'Profile.jpg' sudah benar.")
+
+    st.markdown("<h2 style='text-align: center;' class='gradient-text'>Naufal Daffa</h2>", unsafe_allow_html=True)
+    
     selected = option_menu(
         menu_title=None,
         options=["Home", "Skills", "Projects", "Experience", "Contact"],
@@ -100,11 +115,12 @@ with st.sidebar:
         styles={
             "container": {"padding": "5!important", "background-color": "transparent"},
             "icon": {"color": "#38bdf8", "font-size": "20px"}, 
+            "nav-link": {"color": "white", "font-size": "16px"},
             "nav-link-selected": {"background-color": "rgba(56,189,248,0.2)", "border": "1px solid #38bdf8"},
         }
     )
     st.write("---")
-    st.info("Computer Science @ Gunadarma University")
+    st.info("📍 Computer Science @ Gunadarma University")
 
 # =====================
 # HOME
