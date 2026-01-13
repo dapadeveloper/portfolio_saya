@@ -33,7 +33,7 @@ lottie_data = load_lottieurl("https://lottie.host/8086054a-7e61-4876-803a-345339
 img_base64 = get_image_base64("Profile.jpg")
 
 # =====================
-# CUSTOM CSS (DARK MODE & UI DESIGN)
+# CUSTOM CSS (DARK MODE & PHOTO ALIGNMENT)
 # =====================
 st.markdown(f"""
     <style>
@@ -66,7 +66,7 @@ st.markdown(f"""
         margin: auto;
     }}
 
-    /* About Me Photo - Frame Ganda */
+    /* About Me Photo - Memastikan "Pas" di Lingkaran */
     .profile-frame {{
         width: 350px;
         height: 350px;
@@ -82,12 +82,18 @@ st.markdown(f"""
         width: 100%;
         height: 100%;
         border-radius: 50%;
-        border: 8px solid #0f172a;
-        object-fit: cover;
+        border: 6px solid #0f172a; /* Warna background utama */
+        object-fit: cover; /* Memastikan foto mengisi lingkaran dengan pas */
         display: block;
     }}
 
-    /* Tags Styling */
+    /* Text Contras Fix */
+    .about-text {{
+        color: #cbd5e1;
+        line-height: 1.8;
+        font-size: 18px;
+    }}
+    
     .info-tag {{
         display: inline-flex;
         align-items: center;
@@ -101,7 +107,7 @@ st.markdown(f"""
         margin-bottom: 12px;
     }}
 
-    /* Card Experience & Projects */
+    /* Projects & Skills Cards */
     .card {{
         background: #1e293b;
         padding: 25px;
@@ -110,48 +116,7 @@ st.markdown(f"""
         margin-bottom: 20px;
     }}
 
-    /* SKILLS PROGRESS BAR STYLE */
-    .skill-card {{
-        background-color: #1e293b;
-        padding: 25px;
-        border-radius: 15px;
-        border: 1px solid #334155;
-        height: 100%;
-    }}
-    .skill-header {{
-        color: #facc15;
-        font-weight: 800;
-        margin-bottom: 20px;
-        font-size: 20px;
-    }}
-    .skill-label-container {{
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 5px;
-        margin-top: 15px;
-    }}
-    .skill-name {{
-        color: #f1f5f9;
-        font-weight: 600;
-        font-size: 14px;
-    }}
-    .skill-value {{
-        color: #cbd5e1;
-        font-size: 13px;
-    }}
-    .progress-bg {{
-        background-color: #334155;
-        border-radius: 10px;
-        width: 100%;
-        height: 8px;
-    }}
-    .progress-fill {{
-        background-color: #3b82f6;
-        height: 100%;
-        border-radius: 10px;
-    }}
-
+    /* Header & Footer hide */
     header, footer {{visibility: hidden;}}
     </style>
     """, unsafe_allow_html=True)
@@ -178,28 +143,17 @@ with st.sidebar:
     )
 
 # =====================
-# KONTEN UTAMA
+# MAIN CONTENT
 # =====================
 
-# FUNGSI HELPER SKILL BAR
-def render_skill(name, percent):
-    st.markdown(f"""
-        <div class="skill-label-container">
-            <span class="skill-name">{name}</span>
-            <span class="skill-value">{percent}%</span>
-        </div>
-        <div class="progress-bg">
-            <div class="progress-fill" style="width: {percent}%;"></div>
-        </div>
-    """, unsafe_allow_html=True)
-
 if selected == "About Me":
-    st.markdown("<h1 style='font-size: 3.5rem; color: #f1f5f9;'>About <span style='color: #facc15;'>Me</span></h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='font-size: 3rem; color: #f1f5f9;'>About <span style='color: #facc15;'>Me</span></h1>", unsafe_allow_html=True)
+    
     col1, col2 = st.columns([1.5, 1], gap="large")
     
     with col1:
         st.markdown(f"""
-        <div style="color: #cbd5e1; line-height: 1.8; font-size: 18px;">
+        <div class="about-text">
             <p>Halo! Saya <b>Naufal Daffa Abdu Al Hafidl</b>, mahasiswa Computer Science yang berfokus pada <b>Data Science</b> dan <b>Machine Learning</b>.</p>
             <p>Saya berfokus pada pengolahan data mentah menjadi wawasan yang bermakna (insights) menggunakan Python. Saya memiliki pengalaman dalam membangun dashboard interaktif serta model deteksi objek.</p>
             <p>Selain teknis, pengalaman saya sebagai <b>Ketua Karang Taruna</b> dan <b>Ketua MPK</b> telah membentuk jiwa kepemimpinan saya.</p>
@@ -207,6 +161,7 @@ if selected == "About Me":
             <div class="info-tag">💻 Clean Code</div>
             <div class="info-tag">☕ Coffee Lover</div>
             <div class="info-tag">👥 Team Player</div>
+            <div class="info-tag">🧩 Problem Solver</div>
             <div class="info-tag">📍 Pemalang, Indonesia</div>
         </div>
         """, unsafe_allow_html=True)
@@ -220,41 +175,22 @@ if selected == "About Me":
             """, unsafe_allow_html=True)
 
 elif selected == "Skills":
-    st.markdown("<h1 style='text-align: center; color: #facc15;'>Skills & Technologies</h1>", unsafe_allow_html=True)
-    st.write("##")
-    col1, col2, col3 = st.columns(3, gap="medium")
-    
-    with col1:
-        st.markdown('<div class="skill-card"><div class="skill-header">Frontend</div>', unsafe_allow_html=True)
-        render_skill("HTML", 85)
-        render_skill("CSS", 80)
-        render_skill("JavaScript", 70)
-        render_skill("Tailwind CSS", 75)
-        st.markdown('</div>', unsafe_allow_html=True)
-
-    with col2:
-        st.markdown('<div class="skill-card"><div class="skill-header">Backend</div>', unsafe_allow_html=True)
-        render_skill("Python", 90)
-        render_skill("SQL", 85)
-        render_skill("PHP (Laravel)", 70)
-        render_skill("Flask", 60)
-        st.markdown('</div>', unsafe_allow_html=True)
-
-    with col3:
-        st.markdown('<div class="skill-card"><div class="skill-header">Tools</div>', unsafe_allow_html=True)
-        render_skill("Git / GitHub", 85)
-        render_skill("Figma", 80)
-        render_skill("Pandas", 85)
-        render_skill("Scikit-Learn", 75)
-        st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown("<h1 style='color: #f1f5f9;'>My <span style='color: #facc15;'>Skills</span></h1>", unsafe_allow_html=True)
+    c1, c2 = st.columns(2)
+    with c1:
+        st.markdown("""<div class='card'><h3 style='color:#facc15'>Languages</h3>
+        <p>Python, SQL, HTML/CSS, JavaScript, Java, PHP (Laravel)</p></div>""", unsafe_allow_html=True)
+    with c2:
+        st.markdown("""<div class='card'><h3 style='color:#facc15'>Tools</h3>
+        <p>Pandas, Scikit-Learn, OpenCV, YOLO, Git, Streamlit, Figma</p></div>""", unsafe_allow_html=True)
 
 elif selected == "Projects":
     st.markdown("<h1 style='color: #f1f5f9;'>Featured <span style='color: #facc15;'>Projects</span></h1>", unsafe_allow_html=True)
     st.markdown("""
     <div class='card'>
-        <h3 style='color: #facc15;'>📊 Air Quality Analysis</h3>
-        <p style='color: #cbd5e1;'>Analisis tren polusi udara menggunakan Python dan Streamlit.</p>
-        <a href='#' style='color: #3b82f6; text-decoration: none;'>View on GitHub →</a>
+        <h3 style='color:#facc15'>📊 Air Quality Analysis</h3>
+        <p>Analisis tren polusi udara menggunakan Python dan Streamlit.</p>
+        <a href='https://github.com/dapadeveloper/air-quality-analysis' target='_blank' style='color:#facc15; font-weight:bold;'>View on GitHub →</a>
     </div>
     """, unsafe_allow_html=True)
 
@@ -262,8 +198,8 @@ elif selected == "Experience":
     st.markdown("<h1 style='color: #f1f5f9;'>Experience</h1>", unsafe_allow_html=True)
     st.markdown("""
     <div class='card'>
-        <h3 style='color: #facc15;'>Ketua Karang Taruna</h3>
-        <p style='color: #cbd5e1;'>Cikeas Gardenia | 2022 - 2023</p>
+        <h3 style='color:#facc15'>Ketua Karang Taruna</h3>
+        <p>Cikeas Gardenia (2022 - 2023)</p>
     </div>
     """, unsafe_allow_html=True)
 
