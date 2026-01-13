@@ -58,9 +58,14 @@ st.markdown(f"""
     .project-img-box {{ background-color: #ffffff; height: 200px; overflow: hidden; display: flex; align-items: center; justify-content: center; }}
     .project-img-box img {{ width: 100%; height: 100%; object-fit: cover; }}
     .project-content {{ padding: 20px; color: #0f172a; }}
-    .project-title {{ font-size: 22px; font-weight: 800; margin-bottom: 10px; }}
-    .project-desc {{ font-size: 14px; line-height: 1.5; margin-bottom: 15px; min-height: 60px; }}
     .project-tag {{ background: #0f172a; color: white; padding: 4px 10px; border-radius: 15px; font-size: 11px; margin-right: 5px; font-weight: 600; display: inline-block; margin-bottom: 5px; }}
+
+    /* Contact Section Styling */
+    .contact-container {{ background-color: #facc15; padding: 40px; border-radius: 20px; color: #0f172a; margin-top: 20px; }}
+    .contact-info-box {{ display: flex; align-items: center; margin-bottom: 25px; }}
+    .contact-icon {{ background-color: #0f172a; color: #facc15; width: 45px; height: 45px; border-radius: 10px; display: flex; justify-content: center; align-items: center; margin-right: 15px; font-size: 18px; }}
+    .form-box {{ background-color: #1e293b; padding: 30px; border-radius: 20px; color: white; }}
+    .stForm {{ border: none !important; padding: 0 !important; }}
     
     header, footer {{visibility: hidden;}}
     </style>
@@ -86,19 +91,14 @@ def skill_bar(name, percent):
 def render_project(title, desc, tags, img_b64, link_url=None, is_deployed=True):
     img_src = f'src="data:image/jpeg;base64,{img_b64}"' if img_b64 else 'src="" alt="Image Not Found"'
     t_html = "".join([f'<span class="project-tag">{t}</span>' for t in tags])
-    
-    # Logika untuk tombol/link
-    if is_deployed and link_url:
-        action_html = f'<a href="{link_url}" target="_blank" style="color:#0f172a; font-weight:800; text-decoration:none;">🔗 Go to Website</a>'
-    else:
-        action_html = '<span style="color:#475569; font-weight:600; font-style:italic;">⚠️ Belum di-deploy</span>'
+    action_html = f'<a href="{link_url}" target="_blank" style="color:#0f172a; font-weight:800; text-decoration:none;">🔗 Go to Website</a>' if is_deployed and link_url else '<span style="color:#475569; font-weight:600; font-style:italic;">⚠️ Belum di-deploy</span>'
 
     st.markdown(f"""
     <div class="project-card">
         <div class="project-img-box"><img {img_src}></div>
         <div class="project-content">
-            <div class="project-title">{title}</div>
-            <div class="project-desc">{desc}</div>
+            <div style="font-size: 22px; font-weight: 800; margin-bottom: 10px;">{title}</div>
+            <div style="font-size: 14px; line-height: 1.5; margin-bottom: 15px; min-height: 60px;">{desc}</div>
             <div>{t_html}</div>
             <div style="margin-top:15px;">{action_html}</div>
         </div>
@@ -146,29 +146,11 @@ elif selected == "Projects":
     st.write("##")
     col1, col2, col3 = st.columns(3, gap="medium")
     with col1:
-        render_project(
-            "Air Quality Analysis", 
-            "Dashboard interaktif analisis data kualitas udara PM2.5 real-time.", 
-            ["Python", "Pandas", "Streamlit"], 
-            img_dashboard, 
-            link_url="https://air-quality-analysis-bjdvcvytswek2toxrkuwbe.streamlit.app/"
-        )
+        render_project("Air Quality Analysis", "Dashboard interaktif analisis data kualitas udara PM2.5 real-time.", ["Python", "Pandas", "Streamlit"], img_dashboard, link_url="https://air-quality-analysis-bjdvcvytswek2toxrkuwbe.streamlit.app/")
     with col2:
-        render_project(
-            "Human Detection", 
-            "Sistem deteksi gerakan manusia menggunakan Computer Vision dan YOLO.", 
-            ["Python", "OpenCV", "YOLO"], 
-            img_human, 
-            is_deployed=False
-        )
+        render_project("Human Detection", "Sistem deteksi gerakan manusia menggunakan Computer Vision dan YOLO.", ["Python", "OpenCV", "YOLO"], img_human, is_deployed=False)
     with col3:
-        render_project(
-            "Portfolio Web", 
-            "Website portofolio ini dibangun dengan custom CSS dan Streamlit.", 
-            ["Streamlit", "CSS", "UI/UX"], 
-            img_portofolio, 
-            link_url="https://portfoliosaya-hvqxtxdyyursjexk4hmorz.streamlit.app/"
-        )
+        render_project("Portfolio Web", "Website portofolio ini dibangun dengan custom CSS dan Streamlit.", ["Streamlit", "CSS", "UI/UX"], img_portofolio, link_url="https://portfoliosaya-hvqxtxdyyursjexk4hmorz.streamlit.app/")
 
 elif selected == "Experience":
     st.markdown("<h1>Experience</h1>", unsafe_allow_html=True)
@@ -176,5 +158,20 @@ elif selected == "Experience":
     st.markdown("<div class='skill-card' style='margin-top:15px;'><h3>Ketua MPK</h3><p style='color:#facc15'>SMK 1 Gunung Putri (2021-2022)</p></div>", unsafe_allow_html=True)
 
 elif selected == "Contact":
-    st.markdown("<h1 style='color:#facc15'>Contact Me</h1>", unsafe_allow_html=True)
-    st.markdown("<div class='skill-card'><h4>📧 Fahmifalah081120@gmail.com</h4><h4>🐙 GitHub: dapadeveloper</h4></div>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: center; color: #facc15;'>Get In <span style='color: white;'>Touch</span></h1>", unsafe_allow_html=True)
+    st.markdown('<div class="contact-container">', unsafe_allow_html=True)
+    c1, c2 = st.columns([1, 1.2], gap="large")
+    with c1:
+        st.markdown("<h2 style='color: #0f172a; font-weight: 800;'>Let's work together</h2>", unsafe_allow_html=True)
+        st.markdown("<p style='color: #334155;'>Feel free to reach out for collaborations or just a friendly hello!</p>", unsafe_allow_html=True)
+        for d in [{"i":"📧","l":"Email","v":"Fahmifalah081120@gmail.com"}, {"i":"🐙","l":"GitHub","v":"dapadeveloper"}, {"i":"📍","l":"Location","v":"Pemalang, Indonesia"}]:
+            st.markdown(f'<div class="contact-info-box"><div class="contact-icon">{d["i"]}</div><div><div style="font-weight:800; font-size:14px;">{d["l"]}</div><div>{d["v"]}</div></div></div>', unsafe_allow_html=True)
+    with c2:
+        st.markdown('<div class="form-box">', unsafe_allow_html=True)
+        with st.form("c_form"):
+            st.text_input("Name", placeholder="Your Name")
+            st.text_input("Email", placeholder="Your Email")
+            st.text_area("Message", placeholder="Your Message")
+            if st.form_submit_button("🚀 Send Message"): st.success("Pesan terkirim!")
+        st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
