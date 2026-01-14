@@ -75,6 +75,7 @@ st.markdown(f"""
 # SIDEBAR
 # =====================
 with st.sidebar:
+
     st.markdown("<h2 style='text-align: center; color: white;'>Welcome to My Portofolio </h2>", unsafe_allow_html=True)
     selected = option_menu(None, ["About Me", "Skills", "Projects", "Experience", "Contact"], 
         icons=["person", "cpu", "code-slash", "award", "envelope"], default_index=0,
@@ -258,10 +259,30 @@ elif selected == "Contact":
         email_addr = st.text_input("Email Address", placeholder="nama@example.com")
         msg = st.text_area("Pesan", placeholder="Halo Naufal, saya tertarik untuk...")
         
-        # Tombol Kirim dengan Teks Kuning
+        # --- KONFIGURASI WHATSAPP ---
+        # Gunakan kode negara (62) tanpa tanda + atau spasi
+        phone_number = "628123456789" # <--- GANTI DENGAN NOMOR WHATSAPP ANDA
+        
+        # Tombol Kirim
         if st.button("🚀 SEND MESSAGE TO WHATSAPP", use_container_width=True):
-            st.balloons()
-            st.success("Pesan siap dikirim!")
+            if name and email_addr and msg:
+                # Format pesan (URL Encoding)
+                # %0A adalah enter/baris baru
+                text_wa = f"Halo Naufal!%0A%0A*Nama:* {name}%0A*Email:* {email_addr}%0A*Pesan:* {msg}"
+                whatsapp_url = f"https://wa.me/{phone_number}?text={text_wa}"
+                
+                # Script untuk membuka link otomatis di tab baru
+                st.markdown(f"""
+                    <meta http-equiv="refresh" content="0; url={whatsapp_url}">
+                    <script type="text/javascript">
+                        window.open('{whatsapp_url}', '_blank');
+                    </script>
+                """, unsafe_allow_html=True)
+                
+                st.balloons()
+                st.success("Membuka WhatsApp...")
+            else:
+                st.error("Harap isi semua kolom sebelum mengirim!")
 
     # --- 3. TUTUP CONTAINER KUNING ---
     st.markdown('</div>', unsafe_allow_html=True)
