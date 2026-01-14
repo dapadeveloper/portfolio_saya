@@ -161,13 +161,14 @@ elif selected == "Contact":
     st.markdown("<h1 style='text-align: center; color: #facc15;'>Get In <span style='color: white;'>Touch</span></h1>", unsafe_allow_html=True)
     st.markdown("<p style='text-align: center; color: #f1f5f9; margin-bottom: 30px;'>I'm always open to discussing new opportunities and interesting projects.</p>", unsafe_allow_html=True)
 
-    # --- 1. CSS UNTUK MENATA WARNA ---
+    # --- 1. CSS UNTUK MENATA SEMUA TEXT MENJADI PUTIH ---
     st.markdown("""
         <style>
-            /* Warna label input (Nama, Email, Pesan) tetap gelap agar terbaca di kotak kuning */
+            /* Mengubah warna label input (Nama, Email, Pesan) menjadi PUTIH */
             .stTextInput label, .stTextArea label {
-                color: #0f172a !important;
+                color: #ffffff !important;
                 font-weight: bold !important;
+                text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
             }
             
             /* Kotak utama kuning */
@@ -192,11 +193,19 @@ elif selected == "Contact":
                 font-weight: 600;
             }
 
-            /* Deskripsi ajakan di bawah judul menjadi PUTIH */
+            /* Deskripsi ajakan menjadi PUTIH */
             .contact-description {
                 color: #ffffff !important;
                 margin-bottom: 30px;
                 font-weight: 400;
+                text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            }
+            
+            /* Style judul h2 agar kontras */
+            .contact-title {
+                color: #0f172a; 
+                margin-top: 0;
+                font-weight: 800;
             }
         </style>
     """, unsafe_allow_html=True)
@@ -208,7 +217,7 @@ elif selected == "Contact":
 
     with col1:
         st.markdown("""
-            <h2 style="color: #0f172a; margin-top: 0;">Let's work together</h2>
+            <h2 class="contact-title">Let's work together</h2>
             <p class="contact-description">Whether you have a project in mind or just want to chat, feel free to reach out!</p>
             
             <div style="display: flex; align-items: center; margin-bottom: 25px;">
@@ -228,7 +237,7 @@ elif selected == "Contact":
         """, unsafe_allow_html=True)
 
     with col2:
-        # Form Input Streamlit
+        # Form Input Streamlit dengan Label PUTIH
         name = st.text_input("Nama Lengkap", placeholder="Masukkan nama Anda")
         email_addr = st.text_input("Email Address", placeholder="nama@example.com")
         msg = st.text_area("Pesan", placeholder="Halo Naufal, saya tertarik untuk...")
@@ -236,7 +245,7 @@ elif selected == "Contact":
         # Tombol Kirim
         if st.button("🚀 SEND MESSAGE TO WHATSAPP", use_container_width=True):
             st.balloons()
-            st.success("Pesan terkirim!")
+            st.success("Pesan siap dikirim!")
 
     # --- 3. TUTUP CONTAINER KUNING ---
     st.markdown('</div>', unsafe_allow_html=True)
