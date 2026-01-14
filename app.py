@@ -75,8 +75,6 @@ st.markdown(f"""
 # SIDEBAR
 # =====================
 with st.sidebar:
-    if img_profile:
-        st.markdown(f'<div style="padding: 20px 0;"><img src="data:image/jpeg;base64,{img_profile}" class="sidebar-img"></div>', unsafe_allow_html=True)
     st.markdown("<h2 style='text-align: center; color: white;'>Welcome to My Portofolio </h2>", unsafe_allow_html=True)
     selected = option_menu(None, ["About Me", "Skills", "Projects", "Experience", "Contact"], 
         icons=["person", "cpu", "code-slash", "award", "envelope"], default_index=0,
