@@ -8,7 +8,12 @@ import os
 # =====================
 # KONFIGURASI HALAMAN
 # =====================
-st.set_page_config(page_title="Naufal Daffa | Portfolio", page_icon="📊", layout="wide")
+st.set_page_config(
+    page_title="Naufal Daffa | Portfolio",
+    page_icon="📊",
+    layout="wide",
+    initial_sidebar_state="expanded" 
+)
 
 # FUNGSI UNTUK MERENDER GAMBAR LOKAL KE HTML (BASE64)
 def get_image_base64(path):
@@ -67,7 +72,7 @@ st.markdown(f"""
     .form-box {{ background-color: #1e293b; padding: 30px; border-radius: 20px; color: white; }}
     .stForm {{ border: none !important; padding: 0 !important; }}
     
-    header, footer {{visibility: hidden;}}
+    footer {{visibility: hidden;}}
     </style>
     """, unsafe_allow_html=True)
 
