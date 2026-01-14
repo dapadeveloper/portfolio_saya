@@ -111,7 +111,7 @@ if selected == "About Me":
     st.markdown("<h1>About <span style='color:#facc15'>Me</span></h1>", unsafe_allow_html=True)
     col1, col2 = st.columns([1.5, 1], gap="large")
     with col1:
-        st.markdown(f"""<div style='font-size:18px; line-height:1.8; color:#cbd5e1; text-align: justify;'>
+        st.markdown(f"""<div style='font-size:18px; line-height:1.8; color:#cbd5e1;'>
         Halo! Saya <b>Naufal Daffa Abdu Al Hafidl</b>, mahasiswa Computer Science yang berfokus pada <b>Data Science</b> dan <b>Machine Learning</b>. 
         Saya memiliki pengalaman dalam membangun dashboard interaktif serta model deteksi objek.
         Mantan Ketua Karang Taruna dan Ketua MPK yang memiliki jiwa kepemimpinan kuat.
@@ -119,18 +119,8 @@ if selected == "About Me":
         <span class='project-tag' style='background:#facc15; color:#0f172a; font-size:14px; padding:8px 15px;'>Clean Code</span>
         <span class='project-tag' style='background:#facc15; color:#0f172a; font-size:14px; padding:8px 15px;'>Coffee Lover</span>
         <span class='project-tag' style='background:#facc15; color:#0f172a; font-size:14px; padding:8px 15px;'>Team Player</span>
+        <span class='project-tag' style='background:#facc15; color:#0f172a; font-size:14px; padding:8px 15px;'>Pemalang, Indonesia</span>
         </div>""", unsafe_allow_html=True)
-        
-    with col2:
-        if img_profile:
-            # Container div untuk memastikan posisi tengah
-            st.markdown(f'''
-                <div style="display: flex; justify-content: center;">
-                    <div class="profile-frame">
-                        <img src="data:image/jpeg;base64,{img_profile}" class="profile-img-inner">
-                    </div>
-                </div>
-            ''', unsafe_allow_html=True)
     with col2:
         if img_profile:
             st.markdown(f'<div class="profile-frame"><img src="data:image/jpeg;base64,{img_profile}" class="profile-img-inner"></div>', unsafe_allow_html=True)
@@ -171,7 +161,7 @@ elif selected == "Contact":
     st.markdown("<h1 style='text-align: center; color: #facc15;'>Get In <span style='color: white;'>Touch</span></h1>", unsafe_allow_html=True)
     st.markdown("<p style='text-align: center; color: #f1f5f9; margin-bottom: 30px;'>I'm always open to discussing new opportunities and interesting projects.</p>", unsafe_allow_html=True)
 
-    # --- 1. CSS UNTUK MENATA SEMUA TEXT & TOMBOL ---
+    # --- 1. CSS UNTUK MENATA SEMUA TEXT MENJADI PUTIH ---
     st.markdown("""
         <style>
             /* Mengubah warna label input (Nama, Email, Pesan) menjadi PUTIH */
@@ -217,24 +207,6 @@ elif selected == "Contact":
                 margin-top: 0;
                 font-weight: 800;
             }
-
-            /* PERBAIKAN TOMBOL: Latar Gelap, Teks KUNING */
-            .stButton > button {
-                background-color: #0f172a !important;
-                color: #facc15 !important;
-                font-weight: bold !important;
-                border-radius: 10px !important;
-                border: 2px solid #0f172a !important;
-                height: 50px;
-                transition: 0.3s;
-            }
-            
-            /* Efek saat tombol ditekan/hover */
-            .stButton > button:hover {
-                background-color: #1e293b !important;
-                color: #ffffff !important;
-                border-color: #1e293b !important;
-            }
         </style>
     """, unsafe_allow_html=True)
 
@@ -265,12 +237,12 @@ elif selected == "Contact":
         """, unsafe_allow_html=True)
 
     with col2:
-        # Form Input Streamlit
+        # Form Input Streamlit dengan Label PUTIH
         name = st.text_input("Nama Lengkap", placeholder="Masukkan nama Anda")
         email_addr = st.text_input("Email Address", placeholder="nama@example.com")
         msg = st.text_area("Pesan", placeholder="Halo Naufal, saya tertarik untuk...")
         
-        # Tombol Kirim dengan Teks Kuning
+        # Tombol Kirim
         if st.button("🚀 SEND MESSAGE TO WHATSAPP", use_container_width=True):
             st.balloons()
             st.success("Pesan siap dikirim!")
