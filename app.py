@@ -8,7 +8,12 @@ import os
 # =====================
 # KONFIGURASI HALAMAN
 # =====================
-st.set_page_config(page_title="Naufal Daffa | Portfolio", page_icon="📊", layout="wide")
+st.set_page_config(
+    page_title="Naufal Daffa | Portfolio", 
+    page_icon="📊", 
+    layout="wide",
+    initial_sidebar_state="auto" 
+)
 
 # FUNGSI UNTUK MERENDER GAMBAR LOKAL KE HTML (BASE64)
 def get_image_base64(path):
