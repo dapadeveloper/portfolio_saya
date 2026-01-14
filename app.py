@@ -161,7 +161,7 @@ elif selected == "Contact":
     st.markdown("<h1 style='text-align: center; color: #facc15;'>Get In <span style='color: white;'>Touch</span></h1>", unsafe_allow_html=True)
     st.markdown("<p style='text-align: center; color: #f1f5f9; margin-bottom: 30px;'>I'm always open to discussing new opportunities and interesting projects.</p>", unsafe_allow_html=True)
 
-    # --- 1. CSS UNTUK MENATA SEMUA TEXT MENJADI PUTIH ---
+    # --- 1. CSS UNTUK MENATA SEMUA TEXT & TOMBOL ---
     st.markdown("""
         <style>
             /* Mengubah warna label input (Nama, Email, Pesan) menjadi PUTIH */
@@ -207,6 +207,24 @@ elif selected == "Contact":
                 margin-top: 0;
                 font-weight: 800;
             }
+
+            /* PERBAIKAN TOMBOL: Latar Gelap, Teks KUNING */
+            .stButton > button {
+                background-color: #0f172a !important;
+                color: #facc15 !important;
+                font-weight: bold !important;
+                border-radius: 10px !important;
+                border: 2px solid #0f172a !important;
+                height: 50px;
+                transition: 0.3s;
+            }
+            
+            /* Efek saat tombol ditekan/hover */
+            .stButton > button:hover {
+                background-color: #1e293b !important;
+                color: #ffffff !important;
+                border-color: #1e293b !important;
+            }
         </style>
     """, unsafe_allow_html=True)
 
@@ -237,12 +255,12 @@ elif selected == "Contact":
         """, unsafe_allow_html=True)
 
     with col2:
-        # Form Input Streamlit dengan Label PUTIH
+        # Form Input Streamlit
         name = st.text_input("Nama Lengkap", placeholder="Masukkan nama Anda")
         email_addr = st.text_input("Email Address", placeholder="nama@example.com")
         msg = st.text_area("Pesan", placeholder="Halo Naufal, saya tertarik untuk...")
         
-        # Tombol Kirim
+        # Tombol Kirim dengan Teks Kuning
         if st.button("🚀 SEND MESSAGE TO WHATSAPP", use_container_width=True):
             st.balloons()
             st.success("Pesan siap dikirim!")
