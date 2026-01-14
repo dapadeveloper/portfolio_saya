@@ -259,10 +259,54 @@ elif selected == "Contact":
         email_addr = st.text_input("Email Address", placeholder="nama@example.com")
         msg = st.text_area("Pesan", placeholder="Halo Naufal, saya tertarik untuk...")
         
-        # Tombol Kirim dengan Teks Kuning
-        if st.button("🚀 SEND MESSAGE TO WHATSAPP", use_container_width=True):
-            st.balloons()
-            st.success("Pesan siap dikirim!")
+        # --- KONFIGURASI WHATSAPP ---
+        # GANTI nomor di bawah dengan nomor Anda (awali dengan 62 tanpa spasi/tanda +)
+        phone_number = "628112000000" 
+        
+        st.write("##") # Memberi sedikit ruang
+
+        # Logika Pengiriman
+        if name and email_addr and msg:
+            # Menyusun format pesan WhatsApp ( %0A adalah enter )
+            full_msg = f"Halo Naufal!%0A%0A*Nama:* {name}%0A*Email:* {email_addr}%0A*Pesan:* {msg}"
+            wa_url = f"https://wa.me/{phone_number}?text={full_msg}"
+            
+            # TOMBOL AKTIF (Bisa diklik)
+            st.markdown(f"""
+                <a href="{wa_url}" target="_blank" style="text-decoration: none;">
+                    <div style="
+                        background-color: #0f172a;
+                        color: #facc15;
+                        padding: 12px;
+                        border-radius: 10px;
+                        text-align: center;
+                        font-weight: bold;
+                        border: 2px solid #0f172a;
+                        transition: 0.3s;
+                        cursor: pointer;
+                    ">
+                        🚀 SEND MESSAGE TO WHATSAPP
+                    </div>
+                </a>
+            """, unsafe_allow_html=True)
+            
+            # Efek balon hanya muncul jika tombol asli streamlit ditekan (opsional)
+            # Karena kita pakai HTML Link, balon tidak muncul otomatis kecuali pakai trik khusus.
+        else:
+            # TOMBOL NON-AKTIF (Jika form belum lengkap)
+            st.markdown("""
+                <div style="
+                    background-color: #475569;
+                    color: #94a3b8;
+                    padding: 12px;
+                    border-radius: 10px;
+                    text-align: center;
+                    font-weight: bold;
+                    cursor: not-allowed;
+                ">
+                    🚀 ISI SEMUA DATA UNTUK MENGIRIM
+                </div>
+            """, unsafe_allow_html=True)
 
     # --- 3. TUTUP CONTAINER KUNING ---
     st.markdown('</div>', unsafe_allow_html=True)
