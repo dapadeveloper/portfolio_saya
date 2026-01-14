@@ -259,30 +259,10 @@ elif selected == "Contact":
         email_addr = st.text_input("Email Address", placeholder="nama@example.com")
         msg = st.text_area("Pesan", placeholder="Halo Naufal, saya tertarik untuk...")
         
-        # --- KONFIGURASI WHATSAPP ---
-        # Gunakan kode negara (62) tanpa tanda + atau spasi
-        phone_number = "628123456789" # <--- GANTI DENGAN NOMOR WHATSAPP ANDA
-        
-        # Tombol Kirim
+        # Tombol Kirim dengan Teks Kuning
         if st.button("🚀 SEND MESSAGE TO WHATSAPP", use_container_width=True):
-            if name and email_addr and msg:
-                # Format pesan (URL Encoding)
-                # %0A adalah enter/baris baru
-                text_wa = f"Halo Naufal!%0A%0A*Nama:* {name}%0A*Email:* {email_addr}%0A*Pesan:* {msg}"
-                whatsapp_url = f"https://wa.me/{phone_number}?text={text_wa}"
-                
-                # Script untuk membuka link otomatis di tab baru
-                st.markdown(f"""
-                    <meta http-equiv="refresh" content="0; url={whatsapp_url}">
-                    <script type="text/javascript">
-                        window.open('{whatsapp_url}', '_blank');
-                    </script>
-                """, unsafe_allow_html=True)
-                
-                st.balloons()
-                st.success("Membuka WhatsApp...")
-            else:
-                st.error("Harap isi semua kolom sebelum mengirim!")
+            st.balloons()
+            st.success("Pesan siap dikirim!")
 
     # --- 3. TUTUP CONTAINER KUNING ---
     st.markdown('</div>', unsafe_allow_html=True)
