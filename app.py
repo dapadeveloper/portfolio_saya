@@ -36,115 +36,45 @@ img_portofolio = get_image_base64("portofolio.jpg")
 # CUSTOM CSS (DARK MODE & UI)
 # =====================
 st.markdown(f"""
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
+    
+    .stApp {{ background-color: #0f172a !important; color: #f1f5f9 !important; }}
+    html, body, [class*="css"] {{ font-family: 'Plus Jakarta Sans', sans-serif; }}
 
-.stApp {{ background-color: #0f172a !important; color: #f1f5f9 !important; }}
-html, body, [class*="css"] {{ font-family: 'Plus Jakarta Sans', sans-serif; }}
+    /* Sidebar Styling */
+    section[data-testid="stSidebar"] {{ background-color: #1e293b !important; border-right: 1px solid #334155; }}
+    .sidebar-img {{ width: 120px; height: 120px; border-radius: 50%; border: 3px solid #facc15; object-fit: cover; display: block; margin: auto; }}
 
-/* ================= HEADER / TOP BAR FIX ================= */
-header[data-testid="stHeader"] {{
-    background: #0f172a !important;
-    border-bottom: 1px solid #1e293b;
-}}
+    /* Profile Frame About Me */
+    .profile-frame {{ width: 350px; height: 350px; border-radius: 50%; padding: 10px; background: linear-gradient(135deg, #facc15, #854d0e); display: flex; justify-content: center; align-items: center; margin: auto; }}
+    .profile-img-inner {{ width: 100%; height: 100%; border-radius: 50%; border: 8px solid #0f172a; object-fit: cover; display: block; }}
 
-header[data-testid="stHeader"]::after {{
-    background: none !important;
-}}
+    /* Skill Card & Progress Bar */
+    .skill-card {{ background-color: #1e293b; padding: 25px; border-radius: 15px; border: 1px solid #334155; height: 100%; }}
+    .skill-header {{ color: #facc15; font-weight: 800; margin-bottom: 20px; font-size: 20px; text-transform: uppercase; }}
+    .progress-bg {{ background-color: #334155; border-radius: 10px; width: 100%; height: 8px; margin-bottom: 15px; }}
+    .progress-fill {{ background-color: #3b82f6; height: 100%; border-radius: 10px; }}
+    .skill-label {{ display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 4px; }}
 
-header[data-testid="stHeader"] svg {{
-    color: #facc15 !important;
-}}
-/* ======================================================= */
+    /* Project Card Grid (Kuning Kontras) */
+    .project-card {{ background-color: #facc15; border-radius: 15px; overflow: hidden; height: 100%; transition: 0.3s; border: 1px solid #eab308; }}
+    .project-card:hover {{ transform: translateY(-10px); box-shadow: 0 12px 24px rgba(0,0,0,0.4); }}
+    .project-img-box {{ background-color: #ffffff; height: 200px; overflow: hidden; display: flex; align-items: center; justify-content: center; }}
+    .project-img-box img {{ width: 100%; height: 100%; object-fit: cover; }}
+    .project-content {{ padding: 20px; color: #0f172a; }}
+    .project-tag {{ background: #0f172a; color: white; padding: 4px 10px; border-radius: 15px; font-size: 11px; margin-right: 5px; font-weight: 600; display: inline-block; margin-bottom: 5px; }}
 
-/* Sidebar Styling */
-section[data-testid="stSidebar"] {{ 
-    background-color: #1e293b !important; 
-    border-right: 1px solid #334155; 
-}}
-.sidebar-img {{ 
-    width: 120px; 
-    height: 120px; 
-    border-radius: 50%; 
-    border: 3px solid #facc15; 
-    object-fit: cover; 
-    display: block; 
-    margin: auto; 
-}}
-
-/* Profile Frame About Me */
-.profile-frame {{ 
-    width: 350px; 
-    height: 350px; 
-    border-radius: 50%; 
-    padding: 10px; 
-    background: linear-gradient(135deg, #facc15, #854d0e); 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    margin: auto; 
-}}
-.profile-img-inner {{ 
-    width: 100%; 
-    height: 100%; 
-    border-radius: 50%; 
-    border: 8px solid #0f172a; 
-    object-fit: cover; 
-    display: block; 
-}}
-
-/* Skill Card & Progress Bar */
-.skill-card {{ 
-    background-color: #1e293b; 
-    padding: 25px; 
-    border-radius: 15px; 
-    border: 1px solid #334155; 
-    height: 100%; 
-}}
-.skill-header {{ 
-    color: #facc15; 
-    font-weight: 800; 
-    margin-bottom: 20px; 
-    font-size: 20px; 
-    text-transform: uppercase; 
-}}
-.progress-bg {{ 
-    background-color: #334155; 
-    border-radius: 10px; 
-    width: 100%; 
-    height: 8px; 
-    margin-bottom: 15px; 
-}}
-.progress-fill {{ 
-    background-color: #3b82f6; 
-    height: 100%; 
-    border-radius: 10px; 
-}}
-.skill-label {{ 
-    display: flex; 
-    justify-content: space-between; 
-    font-size: 14px; 
-    margin-bottom: 4px; 
-}}
-
-/* Project Card */
-.project-card {{ 
-    background-color: #facc15; 
-    border-radius: 15px; 
-    overflow: hidden; 
-    height: 100%; 
-    transition: 0.3s; 
-    border: 1px solid #eab308; 
-}}
-.project-card:hover {{ 
-    transform: translateY(-10px); 
-    box-shadow: 0 12px 24px rgba(0,0,0,0.4); 
-}}
-
-footer {{ visibility: hidden; }}
-</style>
-""", unsafe_allow_html=True)
-
+    /* Contact Section Styling */
+    .contact-container {{ background-color: #facc15; padding: 40px; border-radius: 20px; color: #0f172a; margin-top: 20px; }}
+    .contact-info-box {{ display: flex; align-items: center; margin-bottom: 25px; }}
+    .contact-icon {{ background-color: #0f172a; color: #facc15; width: 45px; height: 45px; border-radius: 10px; display: flex; justify-content: center; align-items: center; margin-right: 15px; font-size: 18px; }}
+    .form-box {{ background-color: #1e293b; padding: 30px; border-radius: 20px; color: white; }}
+    .stForm {{ border: none !important; padding: 0 !important; }}
+    
+    footer {{visibility: hidden;}}
+    </style>
+    """, unsafe_allow_html=True)
 
 # =====================
 # SIDEBAR
