@@ -161,14 +161,15 @@ elif selected == "Contact":
     st.markdown("<h1 style='text-align: center; color: #facc15;'>Get In <span style='color: white;'>Touch</span></h1>", unsafe_allow_html=True)
     st.markdown("<p style='text-align: center; color: #f1f5f9; margin-bottom: 30px;'>I'm always open to discussing new opportunities and interesting projects.</p>", unsafe_allow_html=True)
 
-    # --- 1. CSS UNTUK MENATA WARNA INPUT DAN CARD ---
+    # --- 1. CSS UNTUK MENATA WARNA ---
     st.markdown("""
         <style>
-            /* Mengubah warna label input Streamlit agar hitam dan tebal */
+            /* Mengubah warna label input Streamlit (Nama, Email Address, Pesan) agar tetap hitam agar terbaca di kotak kuning */
             .stTextInput label, .stTextArea label {
                 color: #0f172a !important;
                 font-weight: bold !important;
             }
+            
             /* Kotak utama kuning */
             .yellow-card-bg {
                 background-color: #facc15;
@@ -176,17 +177,20 @@ elif selected == "Contact":
                 border-radius: 20px;
                 margin-bottom: 20px;
             }
-            /* PERBAIKAN: Font isian detail diubah menjadi PUTIH */
-            .info-text {
-                color: #ffffff !important; 
-                font-weight: 600;
-                text-shadow: 1px 1px 2px rgba(0,0,0,0.3); /* Tambahan shadow agar teks putih lebih 'keluar' */
-            }
+
+            /* PERBAIKAN: Font judul (Email, GitHub, Location) menjadi PUTIH */
             .info-header {
-                color: #1e293b;
+                color: #ffffff !important; 
                 font-size: 14px;
                 font-weight: bold;
                 display: block;
+                opacity: 0.9; /* Sedikit transparansi agar estetis tapi tetap putih */
+            }
+
+            /* Font isian detail (alamat email, username, dsb) tetap PUTIH */
+            .info-text {
+                color: #ffffff !important; 
+                font-weight: 600;
             }
         </style>
     """, unsafe_allow_html=True)
