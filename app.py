@@ -111,7 +111,7 @@ if selected == "About Me":
     st.markdown("<h1>About <span style='color:#facc15'>Me</span></h1>", unsafe_allow_html=True)
     col1, col2 = st.columns([1.5, 1], gap="large")
     with col1:
-        st.markdown(f"""<div style='font-size:18px; line-height:1.8; color:#cbd5e1;'>
+        st.markdown(f"""<div style='font-size:18px; line-height:1.8; color:#cbd5e1; text-align: justify;'>
         Halo! Saya <b>Naufal Daffa Abdu Al Hafidl</b>, mahasiswa Computer Science yang berfokus pada <b>Data Science</b> dan <b>Machine Learning</b>. 
         Saya memiliki pengalaman dalam membangun dashboard interaktif serta model deteksi objek.
         Mantan Ketua Karang Taruna dan Ketua MPK yang memiliki jiwa kepemimpinan kuat.
@@ -119,8 +119,18 @@ if selected == "About Me":
         <span class='project-tag' style='background:#facc15; color:#0f172a; font-size:14px; padding:8px 15px;'>Clean Code</span>
         <span class='project-tag' style='background:#facc15; color:#0f172a; font-size:14px; padding:8px 15px;'>Coffee Lover</span>
         <span class='project-tag' style='background:#facc15; color:#0f172a; font-size:14px; padding:8px 15px;'>Team Player</span>
-        <span class='project-tag' style='background:#facc15; color:#0f172a; font-size:14px; padding:8px 15px;'>Pemalang, Indonesia</span>
         </div>""", unsafe_allow_html=True)
+        
+    with col2:
+        if img_profile:
+            # Container div untuk memastikan posisi tengah
+            st.markdown(f'''
+                <div style="display: flex; justify-content: center;">
+                    <div class="profile-frame">
+                        <img src="data:image/jpeg;base64,{img_profile}" class="profile-img-inner">
+                    </div>
+                </div>
+            ''', unsafe_allow_html=True)
     with col2:
         if img_profile:
             st.markdown(f'<div class="profile-frame"><img src="data:image/jpeg;base64,{img_profile}" class="profile-img-inner"></div>', unsafe_allow_html=True)
