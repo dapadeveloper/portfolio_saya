@@ -77,7 +77,7 @@ st.markdown(f"""
 with st.sidebar:
     if img_profile:
         st.markdown(f'<div style="padding: 20px 0;"><img src="data:image/jpeg;base64,{img_profile}" class="sidebar-img"></div>', unsafe_allow_html=True)
-    st.markdown("<h2 style='text-align: center; color: white;'>Naufal Daffa</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 style='text-align: center; color: white;'>Welcome to My Portofolio </h2>", unsafe_allow_html=True)
     selected = option_menu(None, ["About Me", "Skills", "Projects", "Experience", "Contact"], 
         icons=["person", "cpu", "code-slash", "award", "envelope"], default_index=0,
         styles={"nav-link": {"color": "#94a3b8"}, "nav-link-selected": {"background-color": "#facc15", "color": "#0f172a", "font-weight": "800"}})
