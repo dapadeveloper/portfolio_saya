@@ -22,7 +22,7 @@ def get_image_base64(path):
     return None
 
 # Load semua gambar lokal
-img_profile = get_image_base64("profile.jpg")
+img_profile = get_image_base64("Profile.png")
 img_dashboard = get_image_base64("dashboard.jpg")
 img_human = get_image_base64("human.jpg")
 img_portofolio = get_image_base64("portofolio.jpg")
