@@ -261,7 +261,7 @@ elif selected == "Contact":
         
         # --- KONFIGURASI WHATSAPP ---
         # GANTI nomor di bawah dengan nomor Anda (awali dengan 62 tanpa spasi/tanda +)
-        phone_number = "628112000000" 
+        phone_number = "6288289592742" 
         
         st.write("##") # Memberi sedikit ruang
 
