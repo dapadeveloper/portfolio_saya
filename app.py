@@ -8,12 +8,7 @@ import os
 # =====================
 # KONFIGURASI HALAMAN
 # =====================
-st.set_page_config(
-    page_title="Naufal Daffa | Portfolio", 
-    page_icon="📊", 
-    layout="wide",
-    initial_sidebar_state="auto" # Memungkinkan sidebar terbuka/tertutup otomatis
-)
+st.set_page_config(page_title="Naufal Daffa | Portfolio", page_icon="📊", layout="wide")
 
 # FUNGSI UNTUK MERENDER GAMBAR LOKAL KE HTML (BASE64)
 def get_image_base64(path):
@@ -44,15 +39,6 @@ st.markdown(f"""
 
     /* Sidebar Styling */
     section[data-testid="stSidebar"] {{ background-color: #1e293b !important; border-right: 1px solid #334155; }}
-    
-    /* Memastikan Tombol Buka/Tutup Sidebar Terlihat (Warna Kuning agar Kontras) */
-    button[data-testid="stSidebarCollapseButton"] {{
-        background-color: #facc15 !important;
-        color: #0f172a !important;
-        border-radius: 50% !important;
-        z-index: 9999;
-    }}
-
     .sidebar-img {{ width: 120px; height: 120px; border-radius: 50%; border: 3px solid #facc15; object-fit: cover; display: block; margin: auto; }}
 
     /* Profile Frame About Me */
@@ -66,7 +52,7 @@ st.markdown(f"""
     .progress-fill {{ background-color: #3b82f6; height: 100%; border-radius: 10px; }}
     .skill-label {{ display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 4px; }}
 
-    /* Project Card Grid */
+    /* Project Card Grid (Kuning Kontras) */
     .project-card {{ background-color: #facc15; border-radius: 15px; overflow: hidden; height: 100%; transition: 0.3s; border: 1px solid #eab308; }}
     .project-card:hover {{ transform: translateY(-10px); box-shadow: 0 12px 24px rgba(0,0,0,0.4); }}
     .project-img-box {{ background-color: #ffffff; height: 200px; overflow: hidden; display: flex; align-items: center; justify-content: center; }}
@@ -75,13 +61,12 @@ st.markdown(f"""
     .project-tag {{ background: #0f172a; color: white; padding: 4px 10px; border-radius: 15px; font-size: 11px; margin-right: 5px; font-weight: 600; display: inline-block; margin-bottom: 5px; }}
 
     /* Contact Section Styling */
-    .yellow-card-bg {{ background-color: #facc15; padding: 40px; border-radius: 20px; margin-bottom: 20px; }}
-    .contact-title {{ color: #0f172a; font-weight: 800; margin-top: 0; }}
-    .contact-description {{ color: #0f172a; opacity: 0.8; margin-bottom: 30px; }}
-    .info-header {{ color: #0f172a; font-size: 14px; font-weight: bold; display: block; }}
-    .info-text {{ color: #0f172a; font-weight: 600; }}
+    .contact-container {{ background-color: #facc15; padding: 40px; border-radius: 20px; color: #0f172a; margin-top: 20px; }}
+    .contact-info-box {{ display: flex; align-items: center; margin-bottom: 25px; }}
+    .contact-icon {{ background-color: #0f172a; color: #facc15; width: 45px; height: 45px; border-radius: 10px; display: flex; justify-content: center; align-items: center; margin-right: 15px; font-size: 18px; }}
+    .form-box {{ background-color: #1e293b; padding: 30px; border-radius: 20px; color: white; }}
+    .stForm {{ border: none !important; padding: 0 !important; }}
     
-    /* Menghilangkan Header & Footer Streamlit */
     header, footer {{visibility: hidden;}}
     </style>
     """, unsafe_allow_html=True)
@@ -90,24 +75,11 @@ st.markdown(f"""
 # SIDEBAR
 # =====================
 with st.sidebar:
-    # Tampilkan foto profil jika ada
-    if img_profile:
-        st.markdown(f'<div style="text-align: center; padding-bottom: 20px;"><img src="data:image/jpeg;base64,{img_profile}" class="sidebar-img"></div>', unsafe_allow_html=True)
-    
-    st.markdown("<h2 style='text-align: center; color: white;'>Naufal Daffa</h2>", unsafe_allow_html=True)
-    
-    selected = option_menu(
-        menu_title=None, 
-        options=["About Me", "Skills", "Projects", "Experience", "Contact"], 
-        icons=["person", "cpu", "code-slash", "award", "envelope"], 
-        default_index=0,
-        styles={
-            "container": {"padding": "5px", "background-color": "transparent"},
-            "icon": {"color": "white", "font-size": "20px"}, # Warna ikon menjadi PUTIH
-            "nav-link": {"color": "#94a3b8", "font-size": "16px", "text-align": "left", "margin":"0px", "--hover-color": "#334155"},
-            "nav-link-selected": {"background-color": "#facc15", "color": "#0f172a", "font-weight": "800"},
-        }
-    )
+
+    st.markdown("<h2 style='text-align: center; color: white;'>Welcome to My Portofolio </h2>", unsafe_allow_html=True)
+    selected = option_menu(None, ["About Me", "Skills", "Projects", "Experience", "Contact"], 
+        icons=["person", "cpu", "code-slash", "award", "envelope"], default_index=0,
+        styles={"nav-link": {"color": "#94a3b8"}, "nav-link-selected": {"background-color": "#facc15", "color": "#0f172a", "font-weight": "800"}})
 
 # =====================
 # HELPER FUNCTIONS
@@ -186,8 +158,78 @@ elif selected == "Experience":
 
 elif selected == "Contact":
     st.markdown("<h1 style='text-align: center; color: #facc15;'>Get In <span style='color: white;'>Touch</span></h1>", unsafe_allow_html=True)
-    
+    st.markdown("<p style='text-align: center; color: #f1f5f9; margin-bottom: 30px;'>I'm always open to discussing new opportunities and interesting projects.</p>", unsafe_allow_html=True)
+
+    # --- 1. CSS UNTUK MENATA SEMUA TEXT & TOMBOL ---
+    st.markdown("""
+        <style>
+            /* Mengubah warna label input (Nama, Email, Pesan) menjadi PUTIH */
+            .stTextInput label, .stTextArea label {
+                color: #ffffff !important;
+                font-weight: bold !important;
+                text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            }
+            
+            /* Kotak utama kuning */
+            .yellow-card-bg {
+                background-color: #facc15;
+                padding: 40px;
+                border-radius: 20px;
+                margin-bottom: 20px;
+            }
+
+            /* Judul label (Email, GitHub, Location) menjadi PUTIH */
+            .info-header {
+                color: #ffffff !important; 
+                font-size: 14px;
+                font-weight: bold;
+                display: block;
+            }
+
+            /* Isian detail (alamat email, username) menjadi PUTIH */
+            .info-text {
+                color: #ffffff !important; 
+                font-weight: 600;
+            }
+
+            /* Deskripsi ajakan menjadi PUTIH */
+            .contact-description {
+                color: #ffffff !important;
+                margin-bottom: 30px;
+                font-weight: 400;
+                text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            }
+            
+            /* Style judul h2 agar kontras */
+            .contact-title {
+                color: #0f172a; 
+                margin-top: 0;
+                font-weight: 800;
+            }
+
+            /* PERBAIKAN TOMBOL: Latar Gelap, Teks KUNING */
+            .stButton > button {
+                background-color: #0f172a !important;
+                color: #facc15 !important;
+                font-weight: bold !important;
+                border-radius: 10px !important;
+                border: 2px solid #0f172a !important;
+                height: 50px;
+                transition: 0.3s;
+            }
+            
+            /* Efek saat tombol ditekan/hover */
+            .stButton > button:hover {
+                background-color: #1e293b !important;
+                color: #ffffff !important;
+                border-color: #1e293b !important;
+            }
+        </style>
+    """, unsafe_allow_html=True)
+
+    # --- 2. MULAI CONTAINER KUNING ---
     st.markdown('<div class="yellow-card-bg">', unsafe_allow_html=True)
+    
     col1, col2 = st.columns([1, 1.2], gap="large")
 
     with col1:
@@ -212,38 +254,51 @@ elif selected == "Contact":
         """, unsafe_allow_html=True)
 
     with col2:
+        # Form Input Streamlit
         name = st.text_input("Nama Lengkap", placeholder="Masukkan nama Anda")
         email_addr = st.text_input("Email Address", placeholder="nama@example.com")
         msg = st.text_area("Pesan", placeholder="Halo Naufal, saya tertarik untuk...")
         
+        # --- KONFIGURASI WHATSAPP ---
+        # GANTI nomor di bawah dengan nomor Anda (awali dengan 62 tanpa spasi/tanda +)
         phone_number = "6288289592742" 
+        
+        st.write("##") # Memberi sedikit ruang
 
+        # Logika Pengiriman
         if name and email_addr and msg:
+            # Menyusun format pesan WhatsApp ( %0A adalah enter )
             full_msg = f"Halo Naufal!%0A%0A*Nama:* {name}%0A*Email:* {email_addr}%0A*Pesan:* {msg}"
             wa_url = f"https://wa.me/{phone_number}?text={full_msg}"
             
+            # TOMBOL AKTIF (Bisa diklik)
             st.markdown(f"""
                 <a href="{wa_url}" target="_blank" style="text-decoration: none;">
                     <div style="
                         background-color: #0f172a;
                         color: #facc15;
-                        padding: 15px;
+                        padding: 12px;
                         border-radius: 10px;
                         text-align: center;
                         font-weight: bold;
                         border: 2px solid #0f172a;
+                        transition: 0.3s;
                         cursor: pointer;
                     ">
                         🚀 SEND MESSAGE TO WHATSAPP
                     </div>
                 </a>
             """, unsafe_allow_html=True)
+            
+            # Efek balon hanya muncul jika tombol asli streamlit ditekan (opsional)
+            # Karena kita pakai HTML Link, balon tidak muncul otomatis kecuali pakai trik khusus.
         else:
+            # TOMBOL NON-AKTIF (Jika form belum lengkap)
             st.markdown("""
                 <div style="
                     background-color: #475569;
                     color: #94a3b8;
-                    padding: 15px;
+                    padding: 12px;
                     border-radius: 10px;
                     text-align: center;
                     font-weight: bold;
@@ -253,4 +308,5 @@ elif selected == "Contact":
                 </div>
             """, unsafe_allow_html=True)
 
+    # --- 3. TUTUP CONTAINER KUNING ---
     st.markdown('</div>', unsafe_allow_html=True)
