@@ -164,7 +164,7 @@ elif selected == "Contact":
     # --- 1. CSS UNTUK MENATA WARNA ---
     st.markdown("""
         <style>
-            /* Mengubah warna label input Streamlit (Nama, Email Address, Pesan) agar tetap hitam agar terbaca di kotak kuning */
+            /* Warna label input (Nama, Email, Pesan) tetap gelap agar terbaca di kotak kuning */
             .stTextInput label, .stTextArea label {
                 color: #0f172a !important;
                 font-weight: bold !important;
@@ -178,19 +178,25 @@ elif selected == "Contact":
                 margin-bottom: 20px;
             }
 
-            /* PERBAIKAN: Font judul (Email, GitHub, Location) menjadi PUTIH */
+            /* Judul label (Email, GitHub, Location) menjadi PUTIH */
             .info-header {
                 color: #ffffff !important; 
                 font-size: 14px;
                 font-weight: bold;
                 display: block;
-                opacity: 0.9; /* Sedikit transparansi agar estetis tapi tetap putih */
             }
 
-            /* Font isian detail (alamat email, username, dsb) tetap PUTIH */
+            /* Isian detail (alamat email, username) menjadi PUTIH */
             .info-text {
                 color: #ffffff !important; 
                 font-weight: 600;
+            }
+
+            /* Deskripsi ajakan di bawah judul menjadi PUTIH */
+            .contact-description {
+                color: #ffffff !important;
+                margin-bottom: 30px;
+                font-weight: 400;
             }
         </style>
     """, unsafe_allow_html=True)
@@ -203,7 +209,7 @@ elif selected == "Contact":
     with col1:
         st.markdown("""
             <h2 style="color: #0f172a; margin-top: 0;">Let's work together</h2>
-            <p style="color: #1e293b; margin-bottom: 30px;">Whether you have a project in mind or just want to chat, feel free to reach out!</p>
+            <p class="contact-description">Whether you have a project in mind or just want to chat, feel free to reach out!</p>
             
             <div style="display: flex; align-items: center; margin-bottom: 25px;">
                 <div style="background: #0f172a; width: 45px; height: 45px; border-radius: 12px; display: flex; justify-content: center; align-items: center; margin-right: 15px;">📧</div>
